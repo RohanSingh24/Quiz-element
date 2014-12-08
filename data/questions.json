@@ -1,7 +1,7 @@
 [
   {
     "uid": 1,
-    "question" : "Which one is the chess board?",
+    "question" : "What is the color combination of chess board?",
     "ch1" : "Black & Blue",
     "ch2" : "White & Red",
     "ch3" : "Black & White",
@@ -41,7 +41,7 @@
   },
   {
     "uid": 5,
-    "question" : "How many pieces are there on each player’s side?",
+    "question" : "How many pieces are there on each player side?",
     "ch1" : "20",
     "ch2" : "10",
     "ch3" : "15",
