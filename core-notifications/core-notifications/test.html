@@ -1,0 +1,25 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/core-selector/core-selector.html">
+<polymer-element name="my-element">
+  <template>
+    <style>
+      .core-selected {
+        font-weight: bold;
+      }
+    </style>
+    <core-selector id="selector" selected="1">
+      <template repeat="{{color in colors}}">
+        <div value="{{color}}">{{color}}</div>
+      </template>
+    </core-selector>
+    <hr>
+    <div>{{colors[$.selector.selected]}}</div>
+  </template>
+  <script>
+    Polymer({
+      created: function() {
+        this.colors = ['red', 'green', 'blue'];
+      }
+    });
+  </script>
+</polymer-element>
