@@ -1,5 +1,5 @@
 <link rel="import" href="../components/polymer/polymer.html">
-<link rel="import" href="../newsevents-service/newsevents-service.html">
+<link rel="import" href="../questions-service/questions-service.html">
 <link rel="import" href="../components/paper-button/paper-button.html">
  <link rel="import" href="../components/paper-ripple/paper-ripple.html">
  <link rel="import" href="../components/core-selector/core-selector.html">
@@ -63,14 +63,14 @@ border-bottom-color: rgb(204, 204, 204);
 		}
       }
     </style>
-	 <newsevents-service id="service" newsevents="{{newsevents}}">
-	</newsevents-service>
+	 <questions-service id="service" questions="{{questions}}">
+	</questions-service>
     <section id="section" layout vertical>
 			<div id="div" hero>
 					<span id="span">Question</span>
 					<div id="que">
 					
-							<blockquote > {{newsevents[0].text}} </blockquote>
+							<blockquote > {{questions[0].text}} </blockquote>
 					</div>
 		 
 					<paper-fab icon="av:play-arrow" id="paper_fab" cross-fade-delayed on-click="{{updateModel}}"></paper-fab>
@@ -82,18 +82,18 @@ border-bottom-color: rgb(204, 204, 204);
 							<br>
 							<br>
 							<core-selector id="ans" >
-									<div class="item">{{newsevents[0].ch1}}</div>
+									<div class="item">{{questions[0].ch1}}</div>
 									
-									<div class="item">{{newsevents[0].ch2}}</div>
+									<div class="item">{{questions[0].ch2}}</div>
 									
-									<div class="item">{{newsevents[0].ch3}}</div>
+									<div class="item">{{questions[0].ch3}}</div>
 								    
-									<div class="item">{{newsevents[0].ch4}}</div>
+									<div class="item">{{questions[0].ch4}}</div>
 							</core-selector>
 					</section>
 			</div>
     </section>
-	<!-- <template repeat="{{newsevent in newsevents}}">
+	<!-- <template repeat="{{newsevent in questions}}">
 		<p>
 			{{newsevent.title}} &nbsp; &nbsp; {{newsevent.date}}
 		</p>
@@ -103,28 +103,28 @@ border-bottom-color: rgb(204, 204, 204);
 	var i=0;
     Polymer('core-notifications', {
     created: function() {
-      this.newsevents=[];
+      this.questions=[];
       // this.alternates=[];
        this.current=0;
     },
 
-    newseventsLoaded: function() {
+    questionsLoaded: function() {
       // Make a copy of the loaded data
-      this.newsevents = this.$.ajax.response.slice(0);
-      console.log("printing newsevents");
-      console.log(this.newsevents);
+      this.questions = this.$.ajax.response.slice(0);
+      console.log("printing questions");
+      console.log(this.questions);
     },
 
     updateModel: function() {
      // alert("error");
-      //alert(this.newsevents.length+"");
+      //alert(this.questions.length+"");
     if(i<7){
-	this.current = (this.current + 1) % this.newsevents.length;
-    this.newsevents[0].text= this.newsevents[this.current].text;
-    this.newsevents[0].ch1= this.newsevents[this.current].ch1;
-	  this.newsevents[0].ch2= this.newsevents[this.current].ch2;
-	    this.newsevents[0].ch3= this.newsevents[this.current].ch3;
-		  this.newsevents[0].ch4= this.newsevents[this.current].ch4;
+	this.current = (this.current + 1) % this.questions.length;
+    this.questions[0].text= this.questions[this.current].text;
+    this.questions[0].ch1= this.questions[this.current].ch1;
+	  this.questions[0].ch2= this.questions[this.current].ch2;
+	    this.questions[0].ch3= this.questions[this.current].ch3;
+		  this.questions[0].ch4= this.questions[this.current].ch4;
 	i++; 
   }
   else {
