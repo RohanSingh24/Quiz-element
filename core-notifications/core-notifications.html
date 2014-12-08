@@ -3,6 +3,7 @@
 <link rel="import" href="../components/paper-button/paper-button.html">
  <link rel="import" href="../components/paper-ripple/paper-ripple.html">
  <link rel="import" href="../components/core-selector/core-selector.html">
+ <link rel="import" href="../components/paper-toast/paper-toast.html">
   <polymer-element name="core-notifications">
   <template>
 	<style>    
@@ -62,10 +63,16 @@ border-bottom-color: rgb(204, 204, 204);
 			
 		}
       }
+	  paper-toast {
+  top: 40px;
+  left: 10px;
+}
     </style>
 	 <questions-service id="service" questions="{{questions}}">
 	</questions-service>
     <section id="section" layout vertical>
+	<paper-toast id="toast1" text="Correct answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>
+	<paper-toast id="toast2" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>
 			<div id="div" hero>
 					<span id="span">Question</span>
 					<div id="que">
@@ -110,6 +117,7 @@ border-bottom-color: rgb(204, 204, 204);
 
     questionsLoaded: function() {
       // Make a copy of the loaded data
+	  	  document.sele.show();
       this.questions = this.$.ajax.response.slice(0);
       console.log("printing questions");
       console.log(this.questions);
@@ -118,21 +126,25 @@ border-bottom-color: rgb(204, 204, 204);
     updateModel: function() {
      // alert("error");
       //alert(this.questions.length+"");
-    if(i<7){
+	 
+    if(i<this.questions.length){
 		if(this.input.innerHTML==this.questions[0].ans){
-			alert("correct answer");
+		
+			this.$.toast1.show();
+			this.current = (this.current + 1) % this.questions.length;
+			i++;
+			
 		}
 		else {
-			alert("wrong answer");
-		}
-		this.current = (this.current + 1) % this.questions.length;
+			this.$.toast2.show();
+		}		
 		this.questions[0].question= this.questions[this.current].question;
 		this.questions[0].ch1= this.questions[this.current].ch1;
 		this.questions[0].ch2= this.questions[this.current].ch2;
 		this.questions[0].ch3= this.questions[this.current].ch3;
 		this.questions[0].ch4= this.questions[this.current].ch4;
 		this.questions[0].ans= this.questions[this.current].ans;
-		i++; 
+		 
   }
   else {
    console.log("your commit ");
