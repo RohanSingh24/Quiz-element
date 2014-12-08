@@ -1,7 +1,7 @@
 <link rel="import" href="../components/polymer/polymer.html">
 <link rel="import" href="../components/core-ajax/core-ajax.html">
 
-<polymer-element name="newsevents-service" attributes="newsevents">
+<polymer-element name="questions-service" attributes="questions">
   <template>
   	 <style>
     :host {
@@ -11,23 +11,23 @@
      <core-ajax id="ajax"
       auto
       url="../data/questions.json"
-      on-core-response="{{newseventsLoaded}}"
+      on-core-response="{{questionsLoaded}}"
       handleAs="json">
     </core-ajax>
     </template>
     <script>
-  Polymer('newsevents-service', {
+  Polymer('questions-service', {
     created: function() {
-      this.newsevents=[];
+      this.questions=[];
        this.alternates=["hello"];
        this.current=0;
     },
 
    newseventsLoaded: function() {
       // Make a copy of the loaded data
-      this.newsevents = this.$.ajax.response.slice(0);
-      console.log("printing newsevents");
-      console.log(this.newsevents);
+      this.questions = this.$.ajax.response.slice(0);
+      console.log("printing questions");
+      console.log(this.questions);
     },
 
    /* updateModel: function() {
