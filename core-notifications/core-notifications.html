@@ -122,6 +122,9 @@ border-bottom-color: rgb(204, 204, 204);
 		if(this.input.innerHTML==this.questions[0].ans){
 			alert("correct answer");
 		}
+		else {
+			alert("wrong answer");
+		}
 		this.current = (this.current + 1) % this.questions.length;
 		this.questions[0].question= this.questions[this.current].question;
 		this.questions[0].ch1= this.questions[this.current].ch1;
