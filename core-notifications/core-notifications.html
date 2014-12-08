@@ -81,7 +81,7 @@ border-bottom-color: rgb(204, 204, 204);
 						<span id="span1">Choose Answers</span>
 							<br>
 							<br>
-							<core-selector id="ans" >
+							<core-selector id="ans"  selectedItem="{{input}}">
 									<div class="item">{{questions[0].ch1}}</div>
 									
 									<div class="item">{{questions[0].ch2}}</div>
@@ -119,13 +119,17 @@ border-bottom-color: rgb(204, 204, 204);
      // alert("error");
       //alert(this.questions.length+"");
     if(i<7){
-	this.current = (this.current + 1) % this.questions.length;
-    this.questions[0].question= this.questions[this.current].question;
-    this.questions[0].ch1= this.questions[this.current].ch1;
-	  this.questions[0].ch2= this.questions[this.current].ch2;
-	    this.questions[0].ch3= this.questions[this.current].ch3;
-		  this.questions[0].ch4= this.questions[this.current].ch4;
-	i++; 
+		if(this.input.innerHTML==this.questions[0].ans){
+			alert("correct answer");
+		}
+		this.current = (this.current + 1) % this.questions.length;
+		this.questions[0].question= this.questions[this.current].question;
+		this.questions[0].ch1= this.questions[this.current].ch1;
+		this.questions[0].ch2= this.questions[this.current].ch2;
+		this.questions[0].ch3= this.questions[this.current].ch3;
+		this.questions[0].ch4= this.questions[this.current].ch4;
+		this.questions[0].ans= this.questions[this.current].ans;
+		i++; 
   }
   else {
    console.log("your commit ");
