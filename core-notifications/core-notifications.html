@@ -1,0 +1,141 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../newsevents-service/newsevents-service.html">
+<link rel="import" href="../components/paper-button/paper-button.html">
+ <link rel="import" href="../components/paper-ripple/paper-ripple.html">
+ <link rel="import" href="../components/core-selector/core-selector.html">
+  <polymer-element name="core-notifications">
+  <template>
+	<style>    
+      :host {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+      }
+	   .item.core-selected {
+			background: #00FF80;
+			
+	  }
+	  .item{
+			height: 40px;
+line-height: 40px;
+padding: 0px 20px;
+border-bottom-width: 1px;
+border-bottom-style: solid;
+border-bottom-color: rgb(204, 204, 204);
+}
+	 
+	  
+      #section {
+        box-sizing: border-box;
+        width: 1000px;
+        height: 250px;
+        left: 150px;
+		 top: 70px;
+        position: absolute;
+      }
+      #div {
+        box-sizing: border-box;
+        position: relative;
+        height: 440px;
+        background-color: #A9E2F3;
+        padding: 24px;
+         font-size: 32px;
+      }
+       #inline{
+	  display: inline;
+	  }
+	  #paper_fab{
+	  margin-left:90%;
+	  }
+	  #que{
+		  height:100px;
+	  }
+	  #answers{
+		 font-size: 32px;
+		 background-color:#BCF5A9;
+	  }
+	  #section {
+        box-sizing: border-box;
+        position: absolute;
+		#fo{
+			
+		}
+      }
+    </style>
+	 <newsevents-service id="service" newsevents="{{newsevents}}">
+	</newsevents-service>
+    <section id="section" layout vertical>
+			<div id="div" hero>
+					<span id="span">Question</span>
+					<div id="que">
+					
+							<blockquote > {{newsevents[0].text}} </blockquote>
+					</div>
+		 
+					<paper-fab icon="av:play-arrow" id="paper_fab" cross-fade-delayed on-click="{{updateModel}}"></paper-fab>
+           </div>
+	    
+					<section id="section1" hero flex>
+						  <div id="answers">
+						<span id="span1">Choose Answers</span>
+							<br>
+							<br>
+							<core-selector id="ans" >
+									<div class="item">{{newsevents[0].ch1}}</div>
+									
+									<div class="item">{{newsevents[0].ch2}}</div>
+									
+									<div class="item">{{newsevents[0].ch3}}</div>
+								    
+									<div class="item">{{newsevents[0].ch4}}</div>
+							</core-selector>
+					</section>
+			</div>
+    </section>
+	<!-- <template repeat="{{newsevent in newsevents}}">
+		<p>
+			{{newsevent.title}} &nbsp; &nbsp; {{newsevent.date}}
+		</p>
+	</template> -->
+	  </template>
+    <script>
+	var i=0;
+    Polymer('core-notifications', {
+    created: function() {
+      this.newsevents=[];
+      // this.alternates=[];
+       this.current=0;
+    },
+
+    newseventsLoaded: function() {
+      // Make a copy of the loaded data
+      this.newsevents = this.$.ajax.response.slice(0);
+      console.log("printing newsevents");
+      console.log(this.newsevents);
+    },
+
+    updateModel: function() {
+     // alert("error");
+      //alert(this.newsevents.length+"");
+    if(i<7){
+	this.current = (this.current + 1) % this.newsevents.length;
+    this.newsevents[0].text= this.newsevents[this.current].text;
+    this.newsevents[0].ch1= this.newsevents[this.current].ch1;
+	  this.newsevents[0].ch2= this.newsevents[this.current].ch2;
+	    this.newsevents[0].ch3= this.newsevents[this.current].ch3;
+		  this.newsevents[0].ch4= this.newsevents[this.current].ch4;
+	i++; 
+  }
+  else {
+   console.log("your commit ");
+   console.log("sejh"+ans.selectedItem);
+	var myVariable = document.getElementById("btn");
+	myVariable.text="finish";
+	
+  }
+  }
+     
+  });
+    </script>
+  </polymer-element>
