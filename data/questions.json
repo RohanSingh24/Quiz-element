@@ -1,7 +1,7 @@
 [
   {
     "uid": 1,
-    "text" : "Which one is the chess board?",
+    "question" : "Which one is the chess board?",
     "ch1" : "Black & Blue",
     "ch2" : "White & Red",
     "ch3" : "Black & White",
@@ -11,7 +11,7 @@
   },
   {
     "uid": 2,
-    "text" : "How many players can play at a time?",
+    "question" : "How many players can play at a time?",
     "ch1" : "5",
     "ch2" : "4",
     "ch3" : "2",
@@ -21,7 +21,7 @@
   },
     {
     "uid": 3,
-    "text" : "How many squares are there on the chess board?",
+    "question" : "How many squares are there on the chess board?",
     "ch1" : "46",
     "ch2" : "100",
     "ch3" : "64",
@@ -31,7 +31,7 @@
   },
   {
     "uid": 4,
-    "text" : "How many squares are there in each row?",
+    "question" : "How many squares are there in each row?",
     "ch1" : "10",
     "ch2" : "8",
     "ch3" : "5",
@@ -41,7 +41,7 @@
   },
   {
     "uid": 5,
-    "text" : "How many pieces are there on each player’s side?",
+    "question" : "How many pieces are there on each player’s side?",
     "ch1" : "20",
     "ch2" : "10",
     "ch3" : "15",
@@ -52,7 +52,7 @@
   },
   {
     "uid": 6,
-     "text" : "How many pawns does each player have?",
+     "question" : "How many pawns does each player have?",
     "ch1" : "7",
     "ch2" : "8",
     "ch3" : "9",
@@ -62,7 +62,7 @@
   },
   {
     "uid": 7,
-     "text" : "what are the colours of pieces?",
+     "question" : "what are the colours of pieces?",
     "ch1" : "Black & Blue",
     "ch2" : "White & Red",
     "ch3" : "Red & Yellow",

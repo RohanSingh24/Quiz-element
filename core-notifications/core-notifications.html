@@ -70,7 +70,7 @@ border-bottom-color: rgb(204, 204, 204);
 					<span id="span">Question</span>
 					<div id="que">
 					
-							<blockquote > {{questions[0].text}} </blockquote>
+							<blockquote > {{questions[0].question}} </blockquote>
 					</div>
 		 
 					<paper-fab icon="av:play-arrow" id="paper_fab" cross-fade-delayed on-click="{{updateModel}}"></paper-fab>
@@ -120,7 +120,7 @@ border-bottom-color: rgb(204, 204, 204);
       //alert(this.questions.length+"");
     if(i<7){
 	this.current = (this.current + 1) % this.questions.length;
-    this.questions[0].text= this.questions[this.current].text;
+    this.questions[0].question= this.questions[this.current].question;
     this.questions[0].ch1= this.questions[this.current].ch1;
 	  this.questions[0].ch2= this.questions[this.current].ch2;
 	    this.questions[0].ch3= this.questions[this.current].ch3;
