@@ -63,10 +63,7 @@ border-bottom-color: rgb(204, 204, 204);
 			
 		}
       }
-	  paper-toast {
-  top: 40px;
-  left: 10px;
-}
+	  
     </style>
 	 <questions-service id="service" questions="{{questions}}">
 	</questions-service>
@@ -113,6 +110,7 @@ border-bottom-color: rgb(204, 204, 204);
       this.questions=[];
       // this.alternates=[];
        this.current=0;
+	   this.chance=0;
     },
 
     questionsLoaded: function() {
@@ -131,12 +129,18 @@ border-bottom-color: rgb(204, 204, 204);
 		if(this.input.innerHTML==this.questions[0].ans){
 		
 			this.$.toast1.show();
-			this.current = (this.current + 1) % this.questions.length;
+			this.current = (this.current + 1);
 			i++;
 			
 		}
 		else {
 			this.$.toast2.show();
+			this.chance=this.chance+1;
+			if(this.chance==2)
+			{
+				this.current = this.current + 1;
+				this.chance=0;
+			}
 		}		
 		this.questions[0].question= this.questions[this.current].question;
 		this.questions[0].ch1= this.questions[this.current].ch1;
