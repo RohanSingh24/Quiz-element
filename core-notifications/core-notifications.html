@@ -120,6 +120,7 @@ border-bottom-color: rgb(204, 204, 204);
 	  </template>
     <script>
 	var i=0;
+	var score=0;
     Polymer('core-notifications', {
     created: function() {
       this.questions=[];
@@ -150,7 +151,7 @@ border-bottom-color: rgb(204, 204, 204);
 
 		}
 		else {
-			//document.getElementsByTagName("paper-toast")[1].text="red";
+			this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
 			this.$.toast2.show();
 		}
 			this.current = (this.current + 1) % this.questions.length;
@@ -160,9 +161,10 @@ border-bottom-color: rgb(204, 204, 204);
 			this.questions[0].ch3= this.questions[this.current].ch3;
 			this.questions[0].ch4= this.questions[this.current].ch4;
 			this.questions[0].ans= this.questions[this.current].ans;
-		 
-  }
-  else {
+			
+  }else if(i==this.question.length) {
+	
+	}else {
    console.log("your commit ");
    console.log("sejh"+ans.selectedItem);
 	var myVariable = document.getElementById("btn");
