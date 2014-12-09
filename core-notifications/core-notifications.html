@@ -3,7 +3,8 @@
 <link rel="import" href="../components/paper-button/paper-button.html">
  <link rel="import" href="../components/paper-ripple/paper-ripple.html">
  <link rel="import" href="../components/core-selector/core-selector.html">
- <link rel="import" href="../components/paper-toast/paper-toast.html">
+ <link rel="import" href="../components/paper-toast/custom-paper-toast.html">
+  <link rel="import" href="../components/paper-toast/paper-toast.html">
   <polymer-element name="core-notifications">
   <template>
 	<style>    
@@ -19,7 +20,7 @@
 	  }
 	  .item{
 			height: 40px;
-line-height: 40px;
+	line-height: 40px;
 padding: 0px 20px;
 border-bottom-width: 1px;
 border-bottom-style: solid;
@@ -49,6 +50,8 @@ border-bottom-color: rgb(204, 204, 204);
 	  #paper_fab{
 	  margin-left:90%;
 	  }
+	  #paper_fab1{
+	  }
 	  #que{
 		  height:100px;
 	  }
@@ -64,26 +67,45 @@ border-bottom-color: rgb(204, 204, 204);
 		}
       }
 paper-toast {
-  top: 500px;
-  left: 700px;
+	top: 500px;
+	left: 700px;
   	font-size:30px;
 	color:green;
 }
+custom-paper-toast {
+  top: 100px;
+  left:400px;
+ height: 400px;
+  width:400px;
+  
+  	font-size:30px;
+}
+#toast123{
+	align:center;
+	background-color:black;
+	color:white;
+	font-size:50px;
+	}
 #toast1{
 	background-color:green;
 	color:white;
 	font-size:30px;
+	height:500px;
+	width:800px;
 	}
 #toast2{
 	background-color:red;
 		color:white;
 	font-size:30px;
+		height:500px;
+	width:800px;
 	}
 	</style>
 	 <questions-service id="service" questions="{{questions}}">
 	</questions-service>
     <section id="section" layout vertical>
-	<paper-toast id="toast1" color="green" text="Correct answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>
+	<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed ></paper-fab></custom-paper-toast>
+	<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 	<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 			<div id="div" hero>
 					<span id="span">Question</span>
@@ -129,46 +151,43 @@ paper-toast {
       console.log("printing questions");
       console.log(this.questions);
     },
-
     updateModel: function() {
 	 
-    if(i<this.questions.length) {
-		if((this.input.innerHTML==this.questions[0].ans)){
-		if(this.chance==1) {
-			score=score+50;
-		} else {
-			score=score+100;
-		}
-			this.$.toast1.text="Correct answer. Your score is "+score;
-			this.$.toast1.show();
-			this.current = (this.current + 1) % this.questions.length;
-			i++;
-			this.chance=0;
-			
-		}
-		else {				
-			this.chance=this.chance+1;
-			if(this.chance==2)
-			{
-				this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
-				this.current = this.current + 1;
+		if((this.current+1)<=this.questions.length) {
+			if((this.input.innerHTML==this.questions[0].ans)){
+				if(this.chance==1) {
+					score=score+50;
+				} else {
+					score=score+100;
+				}
+				this.$.toast1.text="Correct answer. Your score is "+score;
+				this.$.toast1.show();
+				this.current = (this.current + 1) % this.questions.length;
+				i++;
 				this.chance=0;
-			} else {	
-				this.$.toast2.text="Wrong Answer.";
-			}
-			this.$.toast2.show();
-		}		
-		this.questions[0].question= this.questions[this.current].question;
-		this.questions[0].ch1= this.questions[this.current].ch1;
-		this.questions[0].ch2= this.questions[this.current].ch2;
-		this.questions[0].ch3= this.questions[this.current].ch3;
-		this.questions[0].ch4= this.questions[this.current].ch4;
-		this.questions[0].ans= this.questions[this.current].ans;
-		
-
+			} else {				
+				this.chance=this.chance+1;
+				if(this.chance==2)
+				{
+					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
+					this.current = this.current + 1;
+					this.chance=0;
+				} else {	
+					this.$.toast2.text="Wrong Answer.";
+				}
+				this.$.toast2.show();
+			}		
+			this.questions[0].question= this.questions[this.current].question;
+			this.questions[0].ch1= this.questions[this.current].ch1;
+			this.questions[0].ch2= this.questions[this.current].ch2;
+			this.questions[0].ch3= this.questions[this.current].ch3;
+			this.questions[0].ch4= this.questions[this.current].ch4;
+			this.questions[0].ans= this.questions[this.current].ans;
 		}	
 		else {
-			this.$.paper_fab.icon="arrow-forward";	
+	//	alert("you finished");
+			this.$.toast123.text="Your Final score is "+score;
+			this.$.toast123.show();
 		}
 	}     
   });
