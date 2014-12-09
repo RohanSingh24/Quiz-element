@@ -63,14 +63,6 @@ border-bottom-color: rgb(204, 204, 204);
 			
 		}
       }
-<<<<<<< HEAD
-	  
-||||||| merged common ancestors
-	  paper-toast {
-  top: 40px;
-  left: 10px;
-}
-=======
 	  paper-toast {
   top: 500px;
   left: 700px;
@@ -87,8 +79,7 @@ border-bottom-color: rgb(204, 204, 204);
 		color:white;
 	font-size:30px;
 	}
->>>>>>> b5e4e1d63627ed49b541ab1940ce0e3949b3f04c
-    </style>
+	</style>
 	 <questions-service id="service" questions="{{questions}}">
 	</questions-service>
     <section id="section" layout vertical>
@@ -151,24 +142,18 @@ border-bottom-color: rgb(204, 204, 204);
 	 
     if(i<this.questions.length){
 		//alert(this.questions[0].ans+"  "+this.input.innerHTML);
-		if((this.input.innerHTML==this.questions[0].ans)||(this.current==0)){
+		if((this.input.innerHTML==this.questions[0].ans)){
 			//document.getElementsByTagName("paper-toast")[0].style.color="green";
 			this.$.toast1.show();
-<<<<<<< HEAD
-			this.current = (this.current + 1);
-||||||| merged common ancestors
 			this.current = (this.current + 1) % this.questions.length;
-=======
 			// this.$.setTimeout(function(){alert('Hello')},3000);
 			//this.current = (this.current + 1) % this.questions.length;
->>>>>>> b5e4e1d63627ed49b541ab1940ce0e3949b3f04c
 			i++;
 
 		}
 		else {
 			//document.getElementsByTagName("paper-toast")[1].text="red";
 			this.$.toast2.show();
-<<<<<<< HEAD
 			this.chance=this.chance+1;
 			if(this.chance==2)
 			{
@@ -182,35 +167,15 @@ border-bottom-color: rgb(204, 204, 204);
 		this.questions[0].ch3= this.questions[this.current].ch3;
 		this.questions[0].ch4= this.questions[this.current].ch4;
 		this.questions[0].ans= this.questions[this.current].ans;
-||||||| merged common ancestors
-		}		
-		this.questions[0].question= this.questions[this.current].question;
-		this.questions[0].ch1= this.questions[this.current].ch1;
-		this.questions[0].ch2= this.questions[this.current].ch2;
-		this.questions[0].ch3= this.questions[this.current].ch3;
-		this.questions[0].ch4= this.questions[this.current].ch4;
-		this.questions[0].ans= this.questions[this.current].ans;
-=======
 		}
-			this.current = (this.current + 1) % this.questions.length;
-			this.questions[0].question= this.questions[this.current].question;
-			this.questions[0].ch1= this.questions[this.current].ch1;
-			this.questions[0].ch2= this.questions[this.current].ch2;
-			this.questions[0].ch3= this.questions[this.current].ch3;
-			this.questions[0].ch4= this.questions[this.current].ch4;
-			this.questions[0].ans= this.questions[this.current].ans;
->>>>>>> b5e4e1d63627ed49b541ab1940ce0e3949b3f04c
-		 
-  }
-  else {
+		else {
    console.log("your commit ");
    console.log("sejh"+ans.selectedItem);
 	var myVariable = document.getElementById("btn");
 	myVariable.text="finish";
 	
   }
-  }
-     
+		}     
   });
     </script>
   </polymer-element>
