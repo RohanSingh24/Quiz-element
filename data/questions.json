@@ -2,11 +2,11 @@
   {
     "uid": 1,
     "question" : "What is the color combination of chess board?",
-    "ch1" : "Black & Blue",
-    "ch2" : "White & Red",
-    "ch3" : "Black & White",
-	"ch4" : "White & Green",
-	"ans" : "Black & White",
+    "ch1" : "Black and Blue",
+    "ch2" : "White and Red",
+    "ch3" : "Black and White",
+	"ch4" : "White and Green",
+	"ans" : "Black and White",
 	"hint" : ""
   },
   {
@@ -63,11 +63,11 @@
   {
     "uid": 7,
      "question" : "what are the colours of pieces?",
-    "ch1" : "Black & Blue",
-    "ch2" : "White & Red",
-    "ch3" : "Red & Yellow",
-	"ch4" : "Black & White",
-	"ans" : "Black & White",
+    "ch1" : "Black and Blue",
+    "ch2" : "White and Red",
+    "ch3" : "Red and Yellow",
+	"ch4" : "Black and White",
+	"ans" : "Black and White",
 	"hint" : "the cover one complete row"
   }
   
