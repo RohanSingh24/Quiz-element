@@ -141,27 +141,25 @@ border-bottom-color: rgb(204, 204, 204);
 	 
     if(i<this.questions.length){
 		//alert(this.questions[0].ans+"  "+this.input.innerHTML);
-		if(this.input.innerHTML==this.questions[0].ans){
+		if((this.input.innerHTML==this.questions[0].ans)||(this.current==0)){
 			//document.getElementsByTagName("paper-toast")[0].style.color="green";
 			this.$.toast1.show();
-			 var delay=3000;//1 seconds
-			setTimeout(function(){
-				},delay);
-			this.current = (this.current + 1) % this.questions.length;
+			// this.$.setTimeout(function(){alert('Hello')},3000);
+			//this.current = (this.current + 1) % this.questions.length;
 			i++;
-			
+
 		}
 		else {
-			//document.getElementsByTagName("paper-toast")[1].style.color="red";
+			//document.getElementsByTagName("paper-toast")[1].text="red";
 			this.$.toast2.show();
 		}
-		this.current = (this.current + 1) % this.questions.length;
-		this.questions[0].question= this.questions[this.current].question;
-		this.questions[0].ch1= this.questions[this.current].ch1;
-		this.questions[0].ch2= this.questions[this.current].ch2;
-		this.questions[0].ch3= this.questions[this.current].ch3;
-		this.questions[0].ch4= this.questions[this.current].ch4;
-		this.questions[0].ans= this.questions[this.current].ans;
+			this.current = (this.current + 1) % this.questions.length;
+			this.questions[0].question= this.questions[this.current].question;
+			this.questions[0].ch1= this.questions[this.current].ch1;
+			this.questions[0].ch2= this.questions[this.current].ch2;
+			this.questions[0].ch3= this.questions[this.current].ch3;
+			this.questions[0].ch4= this.questions[this.current].ch4;
+			this.questions[0].ans= this.questions[this.current].ans;
 		 
   }
   else {
