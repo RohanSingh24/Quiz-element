@@ -137,6 +137,7 @@ custom-paper-toast {
     <script>
 	var i=0;
 	var score=0;
+	var delay=3000;
     Polymer('core-notifications', {
     created: function() {
       this.questions=[];
@@ -151,10 +152,7 @@ custom-paper-toast {
       console.log(this.questions);
     },
     updateModel: function() {
-	 
-<<<<<<< HEAD
 		if(i<this.questions.length) {
->>>>>>> 4933733f987baaa15f0285bb03f53676b0f03321
 			if((this.input.innerHTML==this.questions[0].ans)){
 				if(this.chance==1) {
 					score=score+50;
@@ -177,7 +175,6 @@ custom-paper-toast {
 				if(this.chance==2)
 				{
 					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
-<<<<<<< HEAD
 					this.$.toast2.show();
 					this.async(function(){
 					this.current = this.current + 1;
@@ -188,7 +185,8 @@ custom-paper-toast {
 				} 
 				else {
 						this.$.toast2.show();
-					}	
+					}
+}	}				
 		else{
 				//this.$.paper_fab.icon="arrow-forward";
 	//	alert("you finished");
@@ -197,8 +195,7 @@ custom-paper-toast {
 			//alert(this.current);
 			this.$.toast123.text="Your Final score is "+score;
 			this.$.toast123.show();
-		}
-	}     
+		}   }  
   });
     </script>
   </polymer-element>
