@@ -153,9 +153,7 @@ custom-paper-toast {
     updateModel: function() {
 	 
 <<<<<<< HEAD
-		if(i<=this.questions.length) {
-=======
-		if(i<7) {
+		if(i<this.questions.length) {
 >>>>>>> 4933733f987baaa15f0285bb03f53676b0f03321
 			if((this.input.innerHTML==this.questions[0].ans)){
 				if(this.chance==1) {
@@ -166,8 +164,10 @@ custom-paper-toast {
 				}
 				this.$.toast1.text="Correct answer. Your score is "+score;
 				this.$.toast1.show();
-				this.current = (this.current + 1);
-				//alert(this.current);
+				this.async(function(){
+				this.current = this.current + 1;
+				this.questions[0]=this.questions[this.current];
+				},null,delay);
 				i++;
 				this.chance=0;
 			} 
@@ -176,40 +176,21 @@ custom-paper-toast {
 				this.chance=this.chance+1;
 				if(this.chance==2)
 				{
-
 					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
 <<<<<<< HEAD
+					this.$.toast2.show();
+					this.async(function(){
 					this.current = this.current + 1;
+					this.questions[0]=this.questions[this.current];
+					},null,delay);
 					this.chance=0;
+					i++;
 				} 
-				else {	
-=======
-
-						if(i!=6)
-						this.current = this.current + 1;
-					else
-						this.$.paper_fab.icon="arrow-forward";
-						this.chance=0;
-						i++;
-				} else {	
->>>>>>> 4933733f987baaa15f0285bb03f53676b0f03321
-					this.$.toast2.text="Wrong Answer.";
-				}
-				this.$.toast2.show();
-			}
-
-			this.questions[0]=this.questions[this.current];
-
-			/*		
-			this.questions[0].question= this.questions[this.current].question;
-			this.questions[0].ch1= this.questions[this.current].ch1;
-			this.questions[0].ch2= this.questions[this.current].ch2;
-			this.questions[0].ch3= this.questions[this.current].ch3;
-			this.questions[0].ch4= this.questions[this.current].ch4;
-			this.questions[0].ans= this.questions[this.current].ans;*/
-		}	
+				else {
+						this.$.toast2.show();
+					}	
 		else{
-
+				//this.$.paper_fab.icon="arrow-forward";
 	//	alert("you finished");
 	//this.$.paper_fab.icon="arrow-forward";
 			this.questions[0]=this.questions[6];
