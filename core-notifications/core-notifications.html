@@ -154,6 +154,8 @@ custom-paper-toast {
     updateModel: function() {
 		if(i<this.questions.length) {
 			if((this.input.innerHTML==this.questions[0].ans)){
+				var audio = new Audio('rightvoice.ogg');
+				audio.play();
 				if(this.chance==1) {
 					score=score+50;
 				} 
@@ -170,6 +172,8 @@ custom-paper-toast {
 				this.chance=0;
 			} 
 			else {	
+				var audio = new Audio('voicebuzzer.ogg');
+				audio.play();
 					i++;
 				this.chance=this.chance+1;
 				if(this.chance==2)
