@@ -153,11 +153,12 @@ custom-paper-toast {
     },
     updateModel: function() {
 	 
-		if((this.current+1)<=this.questions.length) {
+		if(i<=this.questions.length) {
 			if((this.input.innerHTML==this.questions[0].ans)){
 				if(this.chance==1) {
 					score=score+50;
-				} else {
+				} 
+				else {
 					score=score+100;
 				}
 				this.$.toast1.text="Correct answer. Your score is "+score;
@@ -165,14 +166,17 @@ custom-paper-toast {
 				this.current = (this.current + 1) % this.questions.length;
 				i++;
 				this.chance=0;
-			} else {				
+			} 
+			else {	
+					i++;
 				this.chance=this.chance+1;
 				if(this.chance==2)
 				{
 					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
 					this.current = this.current + 1;
 					this.chance=0;
-				} else {	
+				} 
+				else {	
 					this.$.toast2.text="Wrong Answer.";
 				}
 				this.$.toast2.show();
