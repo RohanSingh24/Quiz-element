@@ -1,0 +1,57 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../questions-service/questions-service.html">
+<link rel="import" href="../components/paper-button/paper-button.html">
+<link rel="import" href="../components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../components/core-selector/core-selector.html">
+<link rel="import" href="../components/paper-toast/paper-toast.html">
+<polymer-element name="status-bar" attributes="qno qlength score avatarlink">
+<template>
+<style>
+#topsection {
+        box-sizing: border-box;
+        width: 1000px;
+        height: 150px;
+        left: 150px;
+		 top: 5px;
+        position: absolute;
+		background-color:#FFFF00;
+		font-size: 30px;
+		
+      }
+
+#div1{
+display:inline;
+
+	width:250px;
+
+	position: relative;
+		}
+#div3{
+margin-left:30%;
+	display:inline;
+	margin-left:
+	width:10px;
+
+	position: relative;
+		}
+#div2{
+
+	display:inline;
+	width:500px;
+	
+	position: relative;
+}
+</style>
+
+	<section id="topsection" layout vertical>
+		<div >
+			<div id="div1" >{{}}</div>
+			<div id="div2" >{{qno}}/{{qlength}}</div>
+			<div id="div3"  >{{score}}</div>
+		</div>
+	</section>
+</template>
+<script>
+ Polymer('status-bar', {
+ });
+</script>
