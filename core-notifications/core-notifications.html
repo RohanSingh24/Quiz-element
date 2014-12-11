@@ -190,6 +190,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 				this.async(function(){				
 				this.current = this.current + 1;
 				this.questions[0]=this.questions[this.current];
+				this.$.my.qno=i+1;this.$.my.score=score;
 				},null,delay);
 				}
 				else
@@ -228,7 +229,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 						this.$.toast2.show();
 					}
 }	
-		this.$.my.qno=i+1;this.$.my.score=score;
+		//this.$.my.qno=i+1;this.$.my.score=score;
 }				
    }  
   });
