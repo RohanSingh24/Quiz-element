@@ -158,6 +158,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 	var i=0;
 	var score=0;
 	var delay=3000;
+	var a=0;
     Polymer('core-notifications', {
     created: function() {
       this.questions=[];
@@ -172,6 +173,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
     },
     updateModel: function() {
 		if(i<this.questions.length) {
+			a=(((i+1)/this.questions.length)*100);
 			if((this.input.innerHTML==this.questions[0].ans)){
 				var audio = new Audio('rightvoice.ogg');
 				audio.play();
@@ -190,7 +192,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 				this.async(function(){				
 				this.current = this.current + 1;
 				this.questions[0]=this.questions[this.current];
-				this.$.my.qno=i+1;this.$.my.score=score;
+				this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 				},null,delay);
 				}
 				else
@@ -215,11 +217,12 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 					this.async(function(){				
 					this.current = this.current + 1;
 					this.questions[0]=this.questions[this.current];
-					this.$.my.qno=i+1;this.$.my.score=score;
+					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 					},null,delay);
 					}
 					else
 					{
+						this.$.my.a=a;
 					this.$.toast123.text="Your Final score is "+score;
 					this.$.toast123.show();
 					}
