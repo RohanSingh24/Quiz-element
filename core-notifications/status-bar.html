@@ -4,6 +4,7 @@
 <link rel="import" href="../components/paper-ripple/paper-ripple.html">
 <link rel="import" href="../components/core-selector/core-selector.html">
 <link rel="import" href="../components/paper-toast/paper-toast.html">
+<link rel="import" href="../components/paper-progress/paper-progress.html">
 <polymer-element name="status-bar" attributes="qno qlength score avatarlink">
 <template>
 <style>
@@ -41,17 +42,33 @@ margin-left:30%;
 	
 	position: relative;
 }
+
+ paper-progress {
+      display: block;
+      width: 100%;	  
+      padding: 28px 0;
+	  height : 70px; 
+    }
+    
+   
+paper-progress::shadow #activeProgress {
+  background-color: #e91e63;
+  
+}
 </style>
 
 	<section id="topsection" layout vertical>
 		<div >
 			<div id="div1" >{{}}</div>
 			<div id="div2" >{{qno}}/{{qlength}}</div>
-			<div id="div3"  >{{score}}</div>
+			<div id="div3" >{{score}}</div>			
 		</div>
+		
+		<div id="div4" ><span><paper-progress id= "levelprogress" value="10" >{{qlength}}/100
+		
+		</paper-progress></span></div>
 	</section>
 </template>
 <script>
- Polymer('status-bar', {
- });
+ Polymer('status-bar',{});
 </script>
