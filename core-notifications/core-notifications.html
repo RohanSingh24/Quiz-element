@@ -7,6 +7,7 @@
   <link rel="import" href="../components/paper-toast/paper-toast.html">
   <link rel="import" href="../components/paper-shadow/paper-shadow.html">
   <link rel="import" href="status-bar.html">
+  <link rel="import" href="../components/paper-button/paper-button.html">
   <polymer-element name="core-notifications">
   <template>
 	<style>    
@@ -96,22 +97,31 @@ custom-paper-toast {
 	color:white;
 	font-size:30px;
 	height:500px;
-	width:800px;
+	width:400px;
 	}
 #toast2{
-	background-color:red;
-		color:white;
+	background-color:#FFFF00;
+		color:black;
 	font-size:30px;
 		height:500px;
-	width:800px;
+	width:400px;
 	}
+#butn1{
+	background-color:black;
+	color:white;
+	margin:0 auto;
+	height:50px;
+	width:50px;
+	font-size:20px;
+	display:none;
+}
 paper-shadow #shadow-top {
-border-radius: inherit;
-border-top-left-radius: inherit;
-border-top-right-radius: inherit;
-border-bottom-right-radius: inherit;
-border-bottom-left-radius: inherit;
-pointer-events: none;
+	border-radius: inherit;
+	border-top-left-radius: inherit;
+	border-top-right-radius: inherit;
+	border-bottom-right-radius: inherit;
+	border-bottom-left-radius: inherit;
+	pointer-events: none;
 }
 html .paper-shadow-top-z-5 {
 box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
@@ -126,6 +136,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 	<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed></paper-fab></custom-paper-toast>
 	<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 	<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
+	<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>		
 			<div id="div" hero>
 					<span id="span">Question</span>
 					<div id="que">
@@ -150,6 +161,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 								    
 									<div class="item">{{questions[0].ch4}}</div>
 							</core-selector>
+							<paper-button raised id="butn1" on-click="{{showhint}}">Hint</paper-button>
 					</section>
 			</div>
     </section>
@@ -171,6 +183,19 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
       console.log("printing questions");
       console.log(this.questions);
     },
+	
+	showhint: function() {
+	var v="";
+	//alert("h1y23");
+	if(this.questions[0].hint=="") {
+		this.$.toast2.text="There is no hint for this question";
+	}else 
+		this.$.toast2.text="Hint : "+this.questions[0].hint;
+		//this.$.innerHTML="<h1>hwewew</h1>";	
+		this.$.toast2.show();
+		this.$.butn1.style.display="none";
+	},
+	
     updateModel: function() {
 		if(i<this.questions.length) {
 			a=(((i+1)/this.questions.length)*100);
@@ -189,10 +214,10 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 				this.$.toast1.show();
 				if(i!=this.questions.length-1)
 				{
-				this.async(function(){				
-				this.current = this.current + 1;
-				this.questions[0]=this.questions[this.current];
-				this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+					this.async(function() {				
+					this.current = this.current + 1;
+					this.questions[0]=this.questions[this.current];
+					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 				},null,delay);
 				}
 				else
@@ -205,33 +230,40 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 				this.chance=0;
 			} 
 			else {	
-				var audio = new Audio('voicebuzzer.ogg');
-				audio.play();
+				
 					
 				this.chance=this.chance+1;
 				if(this.chance==2)
 				{
+					var audio = new Audio('voicebuzzer.ogg');
+					audio.play();
 					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
 					this.$.toast2.show();
 					if(i!=this.questions.length-1)
 					{
-					this.async(function(){				
-					this.current = this.current + 1;
-					this.questions[0]=this.questions[this.current];
-					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-					},null,delay);
+						this.async(function(){				
+							this.current = this.current + 1;
+							this.questions[0]=this.questions[this.current];
+							this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+						},null,delay);
 					}
 					else
 					{
 						this.$.my.score=score;this.$.my.a=a;
-					this.$.toast123.text="Your Final score is "+score;
-					this.$.toast123.show();
+						this.$.toast123.text="Your Final score is "+score;
+						this.$.toast123.show();
 					}
 					this.chance=0;
 					i++;
 				} 
 				else {
+						var audio = new Audio('hint.ogg');
+						audio.play();
+						this.$.toast2.text="Wrong Answer.";
 						this.$.toast2.show();
+						//alert("h1");
+						this.$.butn1.style.display="block";
+						//	alert("h2");
 					}
 }	
 		//this.$.my.qno=i+1;this.$.my.score=score;
