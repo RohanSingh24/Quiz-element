@@ -217,77 +217,92 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 	
     updateModel: function() {
 		if(i<this.questions.length) {
-			a=(((i+1)/this.questions.length)*100);
-			if((this.input.innerHTML==this.questions[0].ans)){
-				var audio = new Audio('rightvoice.ogg');
-				audio.play();
-				if(this.chance==1) {
-					score=score+50;
-				} 
-				else {
-					score=score+100;
-				}
-				this.$.toast1.text="Correct answer. Your score is "+score;
-// dynamic change of color	for selector
-			//this.$.ans.item.core-selected.background: #00FF80;
-				this.$.toast1.show();
-				if(i!=this.questions.length-1)
-				{
-					this.async(function() {				
-					this.current = this.current + 1;
-					this.questions[0]=this.questions[this.current];
-					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-				},null,delay);
-				}
-				else
-				{
-					this.$.my.score=score;this.$.my.a=a;
-					this.$.toast123.text="Your Final score is "+score;
-					this.$.toast123.show();
-				}
-				i++;
-				this.chance=0;
-			} 
-			else {	
-				
+					a=(((i+1)/this.questions.length)*100);
 					
-				this.chance=this.chance+1;
-				if(this.chance==2)
-				{
-					var audio = new Audio('voicebuzzer.ogg');
-					audio.play();
-					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
-					this.$.toast2.show();
-					if(i!=this.questions.length-1)
-					{
-						this.async(function(){				
-							this.current = this.current + 1;
-							this.questions[0]=this.questions[this.current];
-							this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-						},null,delay);
-					}
-					else
-					{
-						this.$.my.score=score;this.$.my.a=a;
-						this.$.toast123.text="Your Final score is "+score;
-						this.$.toast123.show();
-					}
-					this.chance=0;
-					i++;
-				} 
-				else {
-						var audio = new Audio('hint.ogg');
-						audio.play();
-						this.$.toast2.text="Wrong Answer.";
-						this.$.toast2.show();
-						//alert("h1");
-						this.$.butn1.style.display="block";
-						//	alert("h2");
-					}
-}	
-		//this.$.my.qno=i+1;this.$.my.score=score;
-}				
-   }  
+					// if answer is correct
+					if((this.input.innerHTML==this.questions[0].ans)){
+								var audio = new Audio('rightvoice.ogg');
+								audio.play();
+								
+								// first time wrong then score =50 
+								if(this.chance==1) {
+											score=score+50;
+								} 
+								
+								// first time correct then score =100
+								else {
+											score=score+100;
+								}
+								this.$.toast1.text="Correct answer. Your score is "+score;
+								// dynamic change of color	for selector
+								//this.$.ans.item.core-selected.background: #00FF80;
+								this.$.toast1.show();
+								
+								// finding last question
+								if(i!=this.questions.length-1){
+											// creating delay for next question
+											this.async(function() {				
+														this.current = this.current + 1;
+														this.questions[0]=this.questions[this.current];
+														this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+											},null,delay);
+								}
+								
+								// showing final score at the end of level
+								else{
+											this.$.my.score=score;this.$.my.a=a;
+											this.$.toast123.text="Your Final score is "+score;
+											this.$.toast123.show();
+								}
+								i++;
+								this.chance=0;
+					} 
+					
+					// if answer is not  correct
+					else {	
+								this.chance=this.chance+1;
+								// wrong for the second time 
+								if(this.chance==2){
+											var audio = new Audio('voicebuzzer.ogg');
+											audio.play();
+											this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
+											this.$.toast2.show();
+											
+											// finding last question
+											if(i!=this.questions.length-1){
+														// delay for next question
+														this.async(function(){				
+																	this.current = this.current + 1;
+																	this.questions[0]=this.questions[this.current];
+																	this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+														},null,delay);
+											}
+											
+											// showing score at the end of level
+											else{
+														this.$.my.score=score;this.$.my.a=a;
+														this.$.toast123.text="Your Final score is "+score;
+														this.$.toast123.show();
+											}
+											this.chance=0;
+											i++;
+								} 
+								
+								// wrong answer for first time
+								else {
+											// showing hint 
+											var audio = new Audio('hint.ogg');
+											audio.play();
+											this.$.toast2.text="Wrong Answer.";
+											this.$.toast2.show();
+											//alert("h1");
+											this.$.butn1.style.display="block";
+											//	alert("h2");
+								}
+					}	
+					//this.$.my.qno=i+1;this.$.my.score=score;
+		}				
+	}  
   });
     </script>
   </polymer-element>
