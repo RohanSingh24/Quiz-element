@@ -1,13 +1,14 @@
 <link rel="import" href="../components/polymer/polymer.html">
 <link rel="import" href="../questions-service/questions-service.html">
 <link rel="import" href="../components/paper-button/paper-button.html">
- <link rel="import" href="../components/paper-ripple/paper-ripple.html">
- <link rel="import" href="../components/core-selector/core-selector.html">
- <link rel="import" href="../components/paper-toast/custom-paper-toast.html">
-  <link rel="import" href="../components/paper-toast/paper-toast.html">
-  <link rel="import" href="../components/paper-shadow/paper-shadow.html">
-  <link rel="import" href="status-bar.html">
-  <link rel="import" href="../components/paper-button/paper-button.html">
+<link rel="import" href="../components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../components/core-selector/core-selector.html">
+<link rel="import" href="../components/paper-toast/custom-paper-toast.html">
+<link rel="import" href="../components/paper-toast/paper-toast.html">
+<link rel="import" href="../components/paper-shadow/paper-shadow.html">
+<link rel="import" href="status-bar.html">
+<link rel="import" href="../components/paper-button/paper-button.html">
+<link rel="import" href="grid-element.html">
   <polymer-element name="core-notifications">
   <template>
 	<style>    
@@ -37,9 +38,9 @@ border-bottom-color: rgb(204, 204, 204);
 	  
       #section {
         box-sizing: border-box;
-        width: 1000px;
+        width: 750px;
         height: 250px;
-        left: 150px;
+        left: 350px;
 		 top: 70px;
         position: absolute;
       }
@@ -126,6 +127,7 @@ paper-shadow #shadow-top {
 html .paper-shadow-top-z-5 {
 box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 }
+
 	</style>
 	 <questions-service id="service" questions="{{questions}}">
 	</questions-service>
