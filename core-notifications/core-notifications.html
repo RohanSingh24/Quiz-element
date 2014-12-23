@@ -8,6 +8,8 @@
   <link rel="import" href="../components/paper-shadow/paper-shadow.html">
   <link rel="import" href="status-bar.html">
   <link rel="import" href="../components/paper-button/paper-button.html">
+  <link rel="import" href="custom-grid.html">
+
   <polymer-element name="core-notifications">
   <template>
 	<style>    
@@ -37,15 +39,15 @@ border-bottom-color: rgb(204, 204, 204);
 	  
       #section {
         box-sizing: border-box;
-        width: 1000px;
+        width: 750px;
         height: 250px;
-        left: 150px;
+        left: 350px;
 		 top: 70px;
         position: absolute;
       }
       #div {
         box-sizing: border-box;
-        position: relative;
+        position: left;
         height: 440px;
         background-color: #A9E2F3;
         padding: 24px;
@@ -66,6 +68,9 @@ border-bottom-color: rgb(204, 204, 204);
 		 font-size: 32px;
 		 background-color:#BCF5A9;
 	  }
+	  #my{
+	width:450px;
+       }
 	  #section {
         box-sizing: border-box;
         position: absolute;
@@ -86,6 +91,7 @@ custom-paper-toast {
   width:400px;
   	font-size:30px;
 }
+
 #toast123{
 	align:center;
 	background-color:black;
@@ -114,6 +120,16 @@ custom-paper-toast {
 	width:50px;
 	font-size:20px;
 	display:none;
+}
+#g1{
+	background-color:black;
+	right:350px;
+	position:left;
+	color:white;
+	margin:0 auto;
+	height:50px;
+	width:50px;
+	font-size:20px;
 }
 paper-shadow #shadow-top {
 	border-radius: inherit;
@@ -165,6 +181,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 					</section>
 			</div>
     </section>
+    <div id="g1"><custom-grid id="g2"></custom-grid></div>
 	  </template>
     <script>
 	var i=0;
@@ -177,12 +194,12 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
        this.current=0;
 	   this.chance=0;
     },
-    questionsLoaded: function() {
+   /* questionsLoaded: function() {
 	  	  document.sele.show();
 		this.questions = this.$.ajax.response.slice(0);
       console.log("printing questions");
       console.log(this.questions);
-    },
+    },*/
 	
 	showhint: function() {
 	var v="";
