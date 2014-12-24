@@ -171,18 +171,16 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 	var score=0;
 	var delay=3000;
 	var a=0;
+	var delay1=8000;
     Polymer('core-notifications', {
     created: function() {
       this.questions=[];
        this.current=0;
 	   this.chance=0;
-    },
-    questionsLoaded: function() {
-	  	  document.sele.show();
-		this.questions = this.$.ajax.response.slice(0);
-      console.log("printing questions");
-      console.log(this.questions);
-    },
+	    this.async(function() {				
+								this.$.butn1.style.display="block";
+		},null,delay1);
+    },	
 	
 	showhint: function() {
 	var v="";
@@ -201,6 +199,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 			a=(((i+1)/this.questions.length)*100);
 			if((this.input.innerHTML==this.questions[0].ans)){
 				var audio = new Audio('rightvoice.ogg');
+				this.$.butn1.style.display="none";
 				audio.play();
 				if(this.chance==1) {
 					score=score+50;
@@ -219,6 +218,9 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 					this.questions[0]=this.questions[this.current];
 					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 				},null,delay);
+				this.async(function() {
+					this.$.butn1.style.display="block";
+				},null,delay+delay1);
 				}
 				else
 				{
@@ -238,6 +240,7 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 					var audio = new Audio('voicebuzzer.ogg');
 					audio.play();
 					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
+					this.$.butn1.style.display="none";
 					this.$.toast2.show();
 					if(i!=this.questions.length-1)
 					{
@@ -246,6 +249,9 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 							this.questions[0]=this.questions[this.current];
 							this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 						},null,delay);
+						this.async(function() {
+								this.$.butn1.style.display="block";
+						},null,delay+delay1);
 					}
 					else
 					{
