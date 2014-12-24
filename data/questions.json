@@ -7,6 +7,7 @@
     "ch3" : "Black and White",
 	"ch4" : "White and Green",
 	"ans" : "Black and White",
+	"ans1" : "ch3",
 	"hint" : ""
   },
   {
@@ -17,6 +18,7 @@
     "ch3" : "2",
 	"ch4" : "11",
 	"ans" : "2",
+	"ans1" : "ch3",
 	"hint" : "Same as number of teams in cricket"
   },
     {
@@ -27,6 +29,7 @@
     "ch3" : "64",
 	"ch4" : "66",
 	"ans" : "64",
+	"ans1" : "ch3",
 	"hint" : "it contains 8 rows and 8 columns"
   },
   {
@@ -37,6 +40,7 @@
     "ch3" : "5",
 	"ch4" : "12",
 	"ans" : "8",
+	"ans1" : "ch2",
 	"hint" : "Each row has four white and four black squares"
   },
   {
@@ -47,6 +51,7 @@
     "ch3" : "15",
 	"ch4" : "16",
 	"ans" : "16",
+	"ans1" : "ch4",
 	"hint" : "one side covers two rows"
 	
   },
@@ -58,6 +63,7 @@
     "ch3" : "9",
 	"ch4" : "5",
 	"ans" : "8",
+	"ans1" : "ch2",
 	"hint" : "the cover one complete row"
   },
   {
@@ -68,6 +74,7 @@
     "ch3" : "Red and Yellow",
 	"ch4" : "Black and White",
 	"ans" : "Black and White",
+	"ans1" : "ch4",
 	"hint" : "the cover one complete row"
   }
   
