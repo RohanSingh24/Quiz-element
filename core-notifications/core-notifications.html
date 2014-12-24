@@ -8,6 +8,9 @@
   <link rel="import" href="../components/paper-shadow/paper-shadow.html">
   <link rel="import" href="status-bar.html">
   <link rel="import" href="../components/paper-button/paper-button.html">
+  
+
+
   <polymer-element name="core-notifications">
   <template>
 	<style>    
@@ -37,15 +40,15 @@ border-bottom-color: rgb(204, 204, 204);
 	  
       #section {
         box-sizing: border-box;
-        width: 1000px;
+        width: 750px;
         height: 250px;
-        left: 150px;
+        left: 350px;
 		 top: 70px;
         position: absolute;
       }
       #div {
         box-sizing: border-box;
-        position: relative;
+        position: left;
         height: 440px;
         background-color: #A9E2F3;
         padding: 24px;
@@ -66,6 +69,9 @@ border-bottom-color: rgb(204, 204, 204);
 		 font-size: 32px;
 		 background-color:#BCF5A9;
 	  }
+	  #my{
+	width:450px;
+       }
 	  #section {
         box-sizing: border-box;
         position: absolute;
@@ -86,6 +92,7 @@ custom-paper-toast {
   width:400px;
   	font-size:30px;
 }
+
 #toast123{
 	align:center;
 	background-color:black;
@@ -115,6 +122,16 @@ custom-paper-toast {
 	font-size:20px;
 	display:none;
 }
+#g1{
+	background-color:black;
+	right:350px;
+	position:left;
+	color:white;
+	margin:0 auto;
+	height:50px;
+	width:50px;
+	font-size:20px;
+}
 paper-shadow #shadow-top {
 	border-radius: inherit;
 	border-top-left-radius: inherit;
@@ -126,6 +143,22 @@ paper-shadow #shadow-top {
 html .paper-shadow-top-z-5 {
 box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 }
+	#di1 {	display:none;
+		position:absolute;
+	}
+	#di2 {
+		display:none;
+		position:absolute;
+	}
+	#di3 {
+	display:none;
+		position:absolute;
+	}
+	#di4 {
+	display:none;
+	position:absolute;
+	}
+
 	</style>
 	 <questions-service id="service" questions="{{questions}}">
 	</questions-service>
@@ -153,19 +186,19 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 							<br>
 							<br>
 							<core-selector id="ans"  selectedItem="{{input}}">
-									<div class="item">{{questions[0].ch1}}</div>
+									<div class="item" id="ch1">{{questions[0].ch1}} <paper-fab id="di1" mini icon="done" ></paper-fab></div>
 									
-									<div class="item">{{questions[0].ch2}}</div>
+									<div class="item" id="ch2">{{questions[0].ch2}}<paper-fab id="di2" mini icon="close"></paper-fab></div>
 									
-									<div class="item">{{questions[0].ch3}}</div>
+									<div class="item" id="ch3">{{questions[0].ch3}}<paper-fab id="di3" mini icon="done"></paper-fab></div>
 								    
-									<div class="item">{{questions[0].ch4}}</div>
+									<div class="item" id="ch4">{{questions[0].ch4}}<paper-fab id="di4" mini icon="done"></paper-fab></div>
 							</core-selector>
 							<paper-button raised id="butn1" on-click="{{showhint}}">Hint</paper-button>
 					</section>
 			</div>
     </section>
-	  </template>
+ 	  </template>
     <script>
 	var i=0;
 	var score=0;
@@ -177,17 +210,17 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
       this.questions=[];
        this.current=0;
 	   this.chance=0;
-	    this.async(function() {				
-								this.$.butn1.style.display="block";
+       this.async(function() {
+			this.$.butn1.style.display="block";
 		},null,delay1);
-    },	
+    },
 	
 	showhint: function() {
 	var v="";
 	//alert("h1y23");
 	if(this.questions[0].hint=="") {
 		this.$.toast2.text="There is no hint for this question";
-	}else 
+	} else 
 		this.$.toast2.text="Hint : "+this.questions[0].hint;
 		//this.$.innerHTML="<h1>hwewew</h1>";	
 		this.$.toast2.show();
@@ -196,85 +229,179 @@ box-shadow: 0 40px 77px 0 rgba(0, 0, 0, 0.22);
 	
     updateModel: function() {
 		if(i<this.questions.length) {
-			a=(((i+1)/this.questions.length)*100);
-			if((this.input.innerHTML==this.questions[0].ans)){
-				var audio = new Audio('rightvoice.ogg');
-				this.$.butn1.style.display="none";
-				audio.play();
-				if(this.chance==1) {
-					score=score+50;
-				} 
-				else {
-					score=score+100;
-				}
-				this.$.toast1.text="Correct answer. Your score is "+score;
-// dynamic change of color	for selector
-			//this.$.ans.item.core-selected.background: #00FF80;
-				this.$.toast1.show();
-				if(i!=this.questions.length-1)
-				{
-					this.async(function() {				
-					this.current = this.current + 1;
-					this.questions[0]=this.questions[this.current];
-					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-				},null,delay);
-				this.async(function() {
-					this.$.butn1.style.display="block";
-				},null,delay+delay1);
-				}
-				else
-				{
-					this.$.my.score=score;this.$.my.a=a;
-					this.$.toast123.text="Your Final score is "+score;
-					this.$.toast123.show();
-				}
-				i++;
-				this.chance=0;
-			} 
-			else {	
-				
+					a=(((i+1)/this.questions.length)*100);
+					console.log(this.input.innerHTML);
+					var x=this.input.innerHTML; var l,y=0,l1=0,start=0;
+					//alert(x.length);
+					for(l=0;l<x.length;l++){
+								if(x.charAt(l)=="<"){
+										//alert("break");
+										break;
+								} y++;
+					}  
+					for(l1=0;l1<x.length;l1++){
+								if(x.charAt(l1)=="=" ) {
+											l1++;
+											start=l1+1; 
+											//alert(start);
+											break;
+								} 
+					}
+					var r=x.substring(start, start+3);
+					//alert(r);
+					x=x.substring(0, y);
+					console.log(x); var flag1=0;
+					// if answer is correct
+					if((x==this.questions[0].ans)){
+								flag1++;
+								if(r=="di1"){
+											this.$.di1.style.display='inline';
+											this.$.di1.icon='done';
+								}
+								else if(r=="di2"){
+											this.$.di2.style.display='inline';
+											this.$.di2.icon='done';
+								}
+								else if(r=="di3"){
+											this.$.di3.style.display='inline';
+											this.$.di3.icon='done';
+								}
+								else if(r=="di4"){
+											this.$.di4.style.display='inline';
+											this.$.di4.icon='done';
+								}
+								var audio = new Audio('rightvoice.ogg');
+								audio.play();
+								
+								// first time wrong then score =50 
+								if(this.chance==1) {
+											score=score+50;
+								} 
+								
+								// first time correct then score =100
+								else {
+											score=score+100;
+								}
+								this.$.toast1.text="Correct answer. Your score is "+score;
+								this.$.butn1.style.display="none";
+								// dynamic change of color	for selector
+								//this.$.ans.item.core-selected.background: #00FF80;
+								this.$.toast1.show();
+								
+								// finding last question
+								if(i!=this.questions.length-1){
+											// creating delay for next question
+											this.async(function() {				
+														this.current = this.current + 1;
+														this.questions[0]=this.questions[this.current];
+														this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+											},null,delay);
+											this.async(function() {
+												this.$.butn1.style.display="block";
+											},null,delay+delay1);
+								}
+								
+								// showing final score at the end of level
+								else{
+											this.$.my.score=score;this.$.my.a=a;
+											this.$.toast123.text="Your Final score is "+score;
+											this.$.toast123.show();
+								}
+								i++;
+								this.chance=0;
+					} 
 					
-				this.chance=this.chance+1;
-				if(this.chance==2)
-				{
-					var audio = new Audio('voicebuzzer.ogg');
-					audio.play();
-					this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
-					this.$.butn1.style.display="none";
-					this.$.toast2.show();
-					if(i!=this.questions.length-1)
-					{
-						this.async(function(){				
-							this.current = this.current + 1;
-							this.questions[0]=this.questions[this.current];
-							this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-						},null,delay);
-						this.async(function() {
-								this.$.butn1.style.display="block";
-						},null,delay+delay1);
-					}
-					else
-					{
-						this.$.my.score=score;this.$.my.a=a;
-						this.$.toast123.text="Your Final score is "+score;
-						this.$.toast123.show();
-					}
-					this.chance=0;
-					i++;
-				} 
-				else {
-						var audio = new Audio('hint.ogg');
-						audio.play();
-						this.$.toast2.text="Wrong Answer.";
-						this.$.toast2.show();
-						//alert("h1");
-						this.$.butn1.style.display="block";
-						//	alert("h2");
-					}
-}	
-		//this.$.my.qno=i+1;this.$.my.score=score;
-}				
-   }  
+					// if answer is not  correct
+					else {	
+								if(r=="di1"){
+											this.$.di1.icon='close';
+											this.$.di1.style.display='inline';
+				
+								}
+								else if(r=="di2"){
+											this.$.di2.icon='close';
+											this.$.di2.style.display='inline';
+											//this.$.di2.icon='done';
+								}
+								else if(r=="di3"){
+											this.$.di3.icon='close';
+											this.$.di3.style.display='inline';
+											//this.$.di3.icon='done';
+								}
+								else if(r=="di4"){
+											this.$.di4.icon='close';
+											this.$.di4.style.display='inline';
+											//this.$.di4.icon='done';
+								}
+								this.chance=this.chance+1;
+								// wrong for the second time 
+								var flag=0;
+								if(this.chance==2){
+										flag++;
+										var audio = new Audio('voicebuzzer.ogg');
+											audio.play();
+											this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
+											this.$.butn1.style.display="none";
+											this.$.toast2.show();
+											
+											// finding last question
+											if(i!=this.questions.length-1){
+														// delay for next question
+														this.async(function(){				
+																	
+																	this.current = this.current + 1;
+																	this.questions[0]=this.questions[this.current];
+																	this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+														},null,delay);
+														this.async(function() {
+															this.$.butn1.style.display="block";
+														},null,delay+delay1);
+											}
+											
+											// showing score at the end of level
+											else{
+														this.$.my.score=score;this.$.my.a=a;
+														this.$.toast123.text="Your Final score is "+score;
+														this.$.toast123.show();
+											}
+											this.chance=0;
+											i++;
+								} 
+								
+								// wrong answer for first time
+								else {
+											// showing hint 
+											var audio = new Audio('hint.ogg');
+											audio.play();
+											this.$.toast2.text="Wrong Answer.";
+											this.$.toast2.show();
+											//alert("h1");
+											this.$.butn1.style.display="block";
+											//	alert("h2");
+								}
+						}	
+					//this.$.my.qno=i+1;this.$.my.score=score;
+		}	          
+					this.async(function() {				
+								//alert("here");
+								if(flag1!=0){
+											flag1=0;
+											this.$.di1.style.display='none';
+											this.$.di2.style.display='none';
+											this.$.di3.style.display='none';
+											this.$.di4.style.display='none';
+								}
+								if(flag!=0){
+											flag=0;
+											this.$.di1.style.display='none';
+											this.$.di2.style.display='none';
+											this.$.di3.style.display='none';
+											this.$.di4.style.display='none';
+								}
+
+					},null,delay);
+								
+	}  
   });
     </script>
   </polymer-element>

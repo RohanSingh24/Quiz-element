@@ -8,16 +8,17 @@
 <polymer-element name="status-bar" attributes="qno qlength score avatarlink">
 <template>
 <style>
-#topsection {
+#topsec{
         box-sizing: border-box;
-        width: 1000px;
-        height: 150px;
-        left: 150px;
-		 top: 5px;
+        width: 750px;
+
+        height: 75px;
+        left: 350px;
+		top: 5px;
+
         position: absolute;
 		background-color:#FFFF00;
-		font-size: 30px;
-		
+		font-size: 30px;		
       }
 
 #div1{
@@ -46,8 +47,8 @@ margin-left:30%;
  paper-progress {
       display: block;
       width: 100%;	  
-      padding: 28px 0;
-	  height : 70px; 
+      padding: 38px 0;
+	  height : 5px; 
     }
     
    
@@ -57,7 +58,7 @@ paper-progress::shadow #activeProgress {
 }
 </style>
 
-	<section id="topsection" layout vertical>
+	<section id="topsec" layout vertical>
 		<div >
 			<div id="div1" >{{}}</div>
 			<div id="div2" >{{qno}}/{{qlength}}</div>
