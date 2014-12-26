@@ -183,7 +183,7 @@
 					</questions-service>
 				
 				
-					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}}></status-bar>
+					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}} lives=4></status-bar>
 					
 				
 					
@@ -231,6 +231,7 @@
 				        var string="";
 						var question=[];
 						var p=0;
+						var life=4;
 						for(p=0;p<7;p++){
 								question.push({
 										s:0,
@@ -269,14 +270,14 @@
 									for (i = 0; i < 7; i++) {
 									string =string + question[i].qs+"  hint used "+question[i].hint;
 								}
-								alert(string);
+								//alert(string);
 								},
 								updateModel: function() {
-											alert(question.length);
+											//alert(question.length);
 									if(i<this.questions.length) {
 												//alert(i+1);
 												question[i].qs=this.questions[0].question;
-												alert(question[i].qs);
+												//alert(question[i].qs);
 												a=(((i+1)/this.questions.length)*100);
 												console.log(this.input.innerHTML);
 												var x=this.input.innerHTML; var l,y=0,l1=0,start=0;
@@ -333,8 +334,8 @@
 															else {
 																		score=score+100;
 																			question[i].s=score;
-																			alert(i);
-																			alert(question[i].s);
+																			//alert(i);
+																			//alert(question[i].s);
 															}
 															this.$.toast1.text="Correct answer. Your score is "+score;
 															this.$.butn1.style.display="none";
@@ -390,6 +391,11 @@
 															this.chance=this.chance+1;
 															// wrong for the second time 
 															var flag=0;
+															life=life-1;
+															if(this.chance==1)
+															{
+																this.$.my.lives=life;
+															}
 															if(this.chance==2){
 																	flag++;
 																	//alert(this.questions[0].ans1);
@@ -420,6 +426,7 @@
 																								this.current = this.current + 1;
 																								this.questions[0]=this.questions[this.current];
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+																								this.$.my.lives=life;
 																					},null,delay);
 																					this.async(function() {
 																						this.$.butn1.style.display="block";
