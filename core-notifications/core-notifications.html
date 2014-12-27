@@ -8,7 +8,7 @@
   <link rel="import" href="../components/paper-shadow/paper-shadow.html">
   <link rel="import" href="status-bar.html">
   <link rel="import" href="../components/paper-button/paper-button.html">
-  
+  <link rel="import" href="../components/core-ajax/core-ajax.html">
   <polymer-element name="core-notifications">
 		  <template>
 					<style>    
@@ -104,7 +104,7 @@
 										align:center;
 										background-color:black;
 										color:white;
-										font-size:50px;
+										font-size:20px;
 								}
 								
 								#toast1{
@@ -226,6 +226,11 @@
 						var delay=3000;
 						var a=0;
 						var delay1=8000;
+						var person = {
+								question:[],
+								ttime:0,
+								score:0,
+						};
 						Polymer('core-notifications', {
 								created: function() {
 										this.questions=[];
@@ -237,27 +242,35 @@
 								},
 				
 								showhint: function() {
+										person.question[this.current].hint=true;
 										var v="";
-										//alert("h1y23");
 										if(this.questions[0].hint=="") {
 												this.$.toast2.text="There is no hint for this question";
 										} 
 										else 
 												this.$.toast2.text="Hint : "+this.questions[0].hint;
-												//this.$.innerHTML="<h1>hwewew</h1>";	
 												this.$.toast2.show();
 												this.$.butn1.style.display="none";
 								},
 				
 								updateModel: function() {
+									if(this.current==0) {
+										for(var k=0;k<this.questions.length;k++) {
+											person.question.push({
+												qs:this.questions[k].question,
+												ans:this.questions[k].ans,
+												option:false,
+												time:0,
+												hint:false,
+												score:0
+											});
+										}
+									}
 									if(i<this.questions.length) {
 												a=(((i+1)/this.questions.length)*100);
-												console.log(this.input.innerHTML);
 												var x=this.input.innerHTML; var l,y=0,l1=0,start=0;
-												//alert(x.length);
 												for(l=0;l<x.length;l++){
 															if(x.charAt(l)=="<"){
-																	//alert("break");
 																	break;
 															} y++;
 												}  
@@ -265,12 +278,10 @@
 															if(x.charAt(l1)=="=" ) {
 																		l1++;
 																		start=l1+1; 
-																		//alert(start);
 																		break;
 															} 
 												}
 												var r=x.substring(start, start+3);
-												//alert(r);
 												x=x.substring(0, y);
 												console.log(x); var flag1=0;
 												// if answer is correct
@@ -294,20 +305,21 @@
 															}
 															var audio = new Audio('rightvoice.ogg');
 															audio.play();
-															
+															person.question[this.current].option=true;
 															// first time wrong then score =50 
 															if(this.chance==1) {
+																		person.question[this.current].score=50;
 																		score=score+50;
 															} 
 															
 															// first time correct then score =100
 															else {
+																	person.question[this.current].score=100;
 																		score=score+100;
 															}
 															this.$.toast1.text="Correct answer. Your score is "+score;
 															this.$.butn1.style.display="none";
 															// dynamic change of color	for selector
-															//this.$.ans.item.core-selected.background: #00FF80;
 															this.$.toast1.show();
 															
 															// finding last question
@@ -325,8 +337,11 @@
 															
 															// showing final score at the end of level
 															else{
+																		for(var k=0;k<this.questions.length;k++) {
+																					person.score+=person.question[k].score;
+																		}
 																		this.$.my.score=score;this.$.my.a=a;
-																		this.$.toast123.text="Your Final score is "+score;
+																		this.$.toast123.text=person.score+" Your Final score is "+score;
 																		this.$.toast123.show();
 															}
 															i++;
@@ -359,9 +374,7 @@
 															// wrong for the second time 
 															var flag=0;
 															if(this.chance==2){
-																	flag++;
-																	//alert(this.questions[0].ans1);
-																	
+																	flag++;																	
 																	if(this.questions[0].ans1=="ch1"){
 																		this.$.di1.icon='done';
 																		this.$.di1.style.display='inline';}
@@ -396,8 +409,12 @@
 																		
 																		// showing score at the end of level
 																		else{
+																				var s="";
+																				for(var k=0;k<this.questions.length;k++) {
+																					person.score+=person.question[k].score;
+																				}
 																					this.$.my.score=score;this.$.my.a=a;
-																					this.$.toast123.text="Your Final score is "+score;
+																					this.$.toast123.text=person.score+"Your Final score is "+score;
 																					this.$.toast123.show();
 																		}
 																		this.chance=0;
@@ -411,15 +428,11 @@
 																		audio.play();
 																		this.$.toast2.text="Wrong Answer.";
 																		this.$.toast2.show();
-																		//alert("h1");
 																		this.$.butn1.style.display="block";
-																		//	alert("h2");
 															}
 													}	
-												//this.$.my.qno=i+1;this.$.my.score=score;
 									}	          
 												this.async(function() {				
-															//alert("here");
 															if(flag1!=0){
 																		flag1=0;
 																		this.$.di1.style.display='none';
@@ -438,8 +451,12 @@
 															}
 
 												},null,delay);
-															
 								}  
 						});
+						function loadq() {
+							var audio = new Audio('welcome.ogg');
+							audio.play();	
+						}
+						window.onload=loadq;
 				</script>
   </polymer-element>
