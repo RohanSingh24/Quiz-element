@@ -178,12 +178,14 @@
 								}
 
 					</style>
+						<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>
 					 <questions-service id="service" questions="{{questions}}">
 					</questions-service>
+				
+				
+					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}} lives=4></status-bar>
 					
-					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}}></status-bar>
-					
-					<div id="shadow-top" fit="" class="paper-shadow-top-z-5"></div>
+				
 					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
 							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed></paper-fab></custom-paper-toast>
@@ -224,8 +226,9 @@
 						var i=0;
 						var score=0;
 						var delay=3000;
-						var a=0;
+						var a=0; var hint=0;
 						var delay1=8000;
+						var life=4;
 						var person = {
 								question:[],
 								ttime:0,
@@ -251,8 +254,14 @@
 												this.$.toast2.text="Hint : "+this.questions[0].hint;
 												this.$.toast2.show();
 												this.$.butn1.style.display="none";
-								},
-				
+								}, 
+							
+								/*display: function() {
+									for (i = 0; i < 7; i++) {
+									string =string + question[i].qs+"  hint used "+question[i].hint;
+								}
+								//alert(string);
+								},*/
 								updateModel: function() {
 									if(this.current==0) {
 										for(var k=0;k<this.questions.length;k++) {
@@ -267,6 +276,9 @@
 										}
 									}
 									if(i<this.questions.length) {
+												//alert(i+1);
+												//question[i].qs=this.questions[0].question;
+												//alert(question[i].qs);
 												a=(((i+1)/this.questions.length)*100);
 												var x=this.input.innerHTML; var l,y=0,l1=0,start=0;
 												for(l=0;l<x.length;l++){
@@ -283,7 +295,8 @@
 												}
 												var r=x.substring(start, start+3);
 												x=x.substring(0, y);
-												console.log(x); var flag1=0;
+												//console.log(x); 
+												var flag1=0;
 												// if answer is correct
 												if((x==this.questions[0].ans)){
 															flag1++;
@@ -310,12 +323,18 @@
 															if(this.chance==1) {
 																		person.question[this.current].score=50;
 																		score=score+50;
+																		//question[i].s=score;
+																	//	alert(i);
+																		//alert(question[i].s);
 															} 
 															
 															// first time correct then score =100
 															else {
 																	person.question[this.current].score=100;
 																		score=score+100;
+																			//question[i].s=score;
+																			//alert(i);
+																			//alert(question[i].s);
 															}
 															this.$.toast1.text="Correct answer. Your score is "+score;
 															this.$.butn1.style.display="none";
@@ -373,6 +392,11 @@
 															this.chance=this.chance+1;
 															// wrong for the second time 
 															var flag=0;
+															life=life-1;
+															if(this.chance==1)
+															{
+																this.$.my.lives=life;
+															}
 															if(this.chance==2){
 																	flag++;																	
 																	if(this.questions[0].ans1=="ch1"){
@@ -401,6 +425,7 @@
 																								this.current = this.current + 1;
 																								this.questions[0]=this.questions[this.current];
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+																								this.$.my.lives=life;
 																					},null,delay);
 																					this.async(function() {
 																						this.$.butn1.style.display="block";
@@ -452,6 +477,7 @@
 
 												},null,delay);
 								}  
+								
 						});
 						function loadq() {
 							var audio = new Audio('welcome.ogg');
