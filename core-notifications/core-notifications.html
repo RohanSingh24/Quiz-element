@@ -398,7 +398,6 @@
 																		//this.$.di4.icon='done';
 															}
 															this.chance=this.chance+1;
-															// wrong for the second time 
 															var flag=0;
 															life=life-1;
 															if(life==0)
@@ -406,11 +405,17 @@
 																this.$.redoToast.text="You lost all your lives. Start from the begining.";
 																this.$.redoToast.show();
 															}
-															else if(this.chance==1)
+															else if(this.chance==1) // wrong answer for first time
 															{
 																this.$.my.lives=life;
+																var audio = new Audio('hint.ogg');
+																		audio.play();
+																		this.$.toast2.text="Wrong Answer.";
+																		this.$.toast2.show();
+																		this.$.butn1.style.display="block";
 															}
-															else if(this.chance==2){
+															else if(this.chance==2) // wrong for the second time 
+															{
 																	flag++;																	
 																	if(this.questions[0].ans1=="ch1"){
 																		this.$.di1.icon='done';
@@ -457,16 +462,6 @@
 																		}
 																		this.chance=0;
 																		i++;
-															} 
-															
-															// wrong answer for first time
-															else {
-																		// showing hint 
-																		var audio = new Audio('hint.ogg');
-																		audio.play();
-																		this.$.toast2.text="Wrong Answer.";
-																		this.$.toast2.show();
-																		this.$.butn1.style.display="block";
 															}
 													}	
 									}	          
