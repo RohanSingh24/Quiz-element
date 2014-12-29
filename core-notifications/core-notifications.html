@@ -106,6 +106,12 @@
 										color:white;
 										font-size:20px;
 								}
+								#redoToast{
+										align:center;
+										background-color:black;
+										color:white;
+										font-size:20px;
+								}
 								
 								#toast1{
 										background-color:green;
@@ -192,7 +198,7 @@
 							<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>		
-									
+							<custom-paper-toast id="redoToast" color="green" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-button raised id="redo" on-click="{{redoTest}}">Redo</paper-button></custom-paper-toast>
 									<div id="div" hero>
 												<span id="span">Question</span>
 												<div id="que">
@@ -243,7 +249,9 @@
 												this.$.butn1.style.display="block";
 										},null,delay1);
 								},
-				
+								redoTest: function(){
+										location.reload();
+								},
 								showhint: function() {
 										person.question[this.current].hint=true;
 										var v="";
@@ -393,11 +401,16 @@
 															// wrong for the second time 
 															var flag=0;
 															life=life-1;
-															if(this.chance==1)
+															if(life==0)
+															{
+																this.$.redoToast.text="You lost all your lives. Start from the begining.";
+																this.$.redoToast.show();
+															}
+															else if(this.chance==1)
 															{
 																this.$.my.lives=life;
 															}
-															if(this.chance==2){
+															else if(this.chance==2){
 																	flag++;																	
 																	if(this.questions[0].ans1=="ch1"){
 																		this.$.di1.icon='done';
