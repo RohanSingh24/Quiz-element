@@ -1,15 +1,15 @@
 <link rel="import" href="../components/polymer/polymer.html">
 <link rel="import" href="../questions-service/questions-service.html">
 <link rel="import" href="../components/paper-button/paper-button.html">
- <link rel="import" href="../components/paper-ripple/paper-ripple.html">
- <link rel="import" href="../components/core-selector/core-selector.html">
- <link rel="import" href="../components/paper-toast/custom-paper-toast.html">
-  <link rel="import" href="../components/paper-toast/paper-toast.html">
-  <link rel="import" href="../components/paper-shadow/paper-shadow.html">
-  <link rel="import" href="status-bar.html">
-  <link rel="import" href="../components/paper-button/paper-button.html">
-  <link rel="import" href="../components/core-ajax/core-ajax.html">
-  <polymer-element name="core-notifications">
+<link rel="import" href="../components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../components/core-selector/core-selector.html">
+<link rel="import" href="../components/paper-toast/custom-paper-toast.html">
+<link rel="import" href="../components/paper-toast/paper-toast.html">
+<link rel="import" href="../components/paper-shadow/paper-shadow.html">
+<link rel="import" href="status-bar.html">
+<link rel="import" href="../components/paper-button/paper-button.html">
+<link rel="import" href="../components/core-ajax/core-ajax.html">
+  <polymer-element name="core-notifications" attributes="nqno">
 		  <template>
 					<style>    
 								.body{
@@ -202,7 +202,7 @@
 									<div id="div" hero>
 												<span id="span">Question</span>
 												<div id="que">
-														<blockquote > {{questions[0].question}} </blockquote>
+														<blockquote > {{questions[nqno].question}} </blockquote>
 												</div>
 								 
 												<paper-fab icon="av:play-arrow" id="paper_fab" cross-fade-delayed on-click="{{updateModel}}"></paper-fab>
@@ -214,13 +214,13 @@
 																<br>
 																<br>
 														<core-selector id="ans"  selectedItem="{{input}}">
-																	<div class="item" id="ch1">{{questions[0].ch1}} <paper-fab id="di1" mini icon="done" ></paper-fab></div>
+																	<div class="item" id="ch1">{{questions[nqno].ch1}} <paper-fab id="di1" mini icon="done" ></paper-fab></div>
 															
-																	<div class="item" id="ch2">{{questions[0].ch2}}<paper-fab id="di2" mini icon="close"></paper-fab></div>
+																	<div class="item" id="ch2">{{questions[nqno].ch2}}<paper-fab id="di2" mini icon="close"></paper-fab></div>
 															
-																	<div class="item" id="ch3">{{questions[0].ch3}}<paper-fab id="di3" mini icon="done"></paper-fab></div>
+																	<div class="item" id="ch3">{{questions[nqno].ch3}}<paper-fab id="di3" mini icon="done"></paper-fab></div>
 															
-																	<div class="item" id="ch4">{{questions[0].ch4}}<paper-fab id="di4" mini icon="done"></paper-fab></div>
+																	<div class="item" id="ch4">{{questions[nqno].ch4}}<paper-fab id="di4" mini icon="done"></paper-fab></div>
 														</core-selector>
 														<paper-button raised id="butn1" on-click="{{showhint}}">Hint</paper-button>
 											</div>
@@ -241,10 +241,16 @@
 								score:0,
 						};
 						Polymer('core-notifications', {
+								publish: 
+								{
+									nqno :'',
+									
+								},
 								created: function() {
 										this.questions=[];
 										this.current=0;
 										this.chance=0;
+										this.nqno=0;
 										this.async(function() {
 												this.$.butn1.style.display="block";
 										},null,delay1);
@@ -255,7 +261,7 @@
 								showhint: function() {
 										person.question[this.current].hint=true;
 										var v="";
-										if(this.questions[0].hint=="") {
+										if(this.questions[nqno].hint=="") {
 												this.$.toast2.text="There is no hint for this question";
 										} 
 										else 
@@ -306,7 +312,7 @@
 												//console.log(x); 
 												var flag1=0;
 												// if answer is correct
-												if((x==this.questions[0].ans)){
+												if((x==this.questions[this.nqno].ans)){
 															flag1++;
 															if(r=="di1"){
 																		this.$.di1.style.display='inline';
@@ -353,8 +359,9 @@
 															if(i!=this.questions.length-1){
 																		// creating delay for next question
 																		this.async(function() {				
-																					this.current = this.current + 1;
-																					this.questions[0]=this.questions[this.current];
+																					this.nqno++;
+																					//this.current = this.current + 1;
+																					//this.questions[0]=this.questions[this.current];
 																					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 																		},null,delay);
 																		this.async(function() {
@@ -439,9 +446,9 @@
 																		if(i!=this.questions.length-1){
 																					// delay for next question
 																					this.async(function(){				
-																								
-																								this.current = this.current + 1;
-																								this.questions[0]=this.questions[this.current];
+																								this.nqno++;
+																								//this.current = this.current + 1;
+																								//this.questions[0]=this.questions[this.current];
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 																								this.$.my.lives=life;
 																					},null,delay);
