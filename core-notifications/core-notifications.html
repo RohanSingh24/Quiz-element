@@ -261,11 +261,11 @@
 								showhint: function() {
 										person.question[this.current].hint=true;
 										var v="";
-										if(this.questions[nqno].hint=="") {
+										if(this.questions[this.nqno].hint=="") {
 												this.$.toast2.text="There is no hint for this question";
 										} 
 										else 
-												this.$.toast2.text="Hint : "+this.questions[0].hint;
+												this.$.toast2.text="Hint : "+this.questions[this.nqno].hint;
 												this.$.toast2.show();
 												this.$.butn1.style.display="none";
 								}, 
@@ -277,7 +277,7 @@
 								//alert(string);
 								},*/
 								updateModel: function() {
-									if(this.current==0) {
+									if(this.nqno==0) {
 										for(var k=0;k<this.questions.length;k++) {
 											person.question.push({
 												qs:this.questions[k].question,
@@ -293,7 +293,7 @@
 												//alert(i+1);
 												//question[i].qs=this.questions[0].question;
 												//alert(question[i].qs);
-												a=(((i+1)/this.questions.length)*100);
+												a=(((this.nqno+1)/this.questions.length)*100);
 												var x=this.input.innerHTML; var l,y=0,l1=0,start=0;
 												for(l=0;l<x.length;l++){
 															if(x.charAt(l)=="<"){
@@ -332,7 +332,7 @@
 															}
 															var audio = new Audio('rightvoice.ogg');
 															audio.play();
-															person.question[this.current].option=true;
+															person.question[this.nqno].option=true;
 															// first time wrong then score =50 
 															if(this.chance==1) {
 																		person.question[this.current].score=50;
@@ -344,7 +344,7 @@
 															
 															// first time correct then score =100
 															else {
-																	person.question[this.current].score=100;
+																	person.question[this.nqno].score=100;
 																		score=score+100;
 																			//question[i].s=score;
 																			//alert(i);
@@ -424,16 +424,16 @@
 															else if(this.chance==2) // wrong for the second time 
 															{
 																	flag++;																	
-																	if(this.questions[0].ans1=="ch1"){
+																	if(this.questions[this.nqno].ans1=="ch1"){
 																		this.$.di1.icon='done';
 																		this.$.di1.style.display='inline';}
-																	else if(this.questions[0].ans1=="ch2"){
+																	else if(this.questions[this.nqno].ans1=="ch2"){
 																		this.$.di2.icon='done';
 																		this.$.di2.style.display='inline';}
-																	else if(this.questions[0].ans1=="ch3"){
+																	else if(this.questions[this.nqno].ans1=="ch3"){
 																		this.$.di3.icon='done';
 																		this.$.di3.style.display='inline';}
-																	else if(this.questions[0].ans1=="ch4"){
+																	else if(this.questions[this.nqno].ans1=="ch4"){
 																		this.$.di4.icon='done';
 																		this.$.di4.style.display='inline';}
 																	var audio = new Audio('voicebuzzer.ogg');
