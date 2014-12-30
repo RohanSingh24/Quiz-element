@@ -235,6 +235,8 @@
 						var a=0; var hint=0;
 						var delay1=8000;
 						var life=4;
+						var tstart;
+						var tend;
 						var person = {
 								question:[],
 								ttime:0,
@@ -248,18 +250,27 @@
 								},
 								created: function() {
 										this.questions=[];
-										this.current=0;
+										this.nqno=0;
 										this.chance=0;
 										this.nqno=0;
 										this.async(function() {
 												this.$.butn1.style.display="block";
 										},null,delay1);
+										person.question.push({
+												qs:"",
+												ans:"",
+												option:false,
+												time:0,
+												hint:false,
+												score:0
+										});
+										tstart=new Date().getTime();
 								},
 								redoTest: function(){
 										location.reload();
 								},
 								showhint: function() {
-										person.question[this.current].hint=true;
+										person.question[this.nqno].hint=true;
 										var v="";
 										if(this.questions[this.nqno].hint=="") {
 												this.$.toast2.text="There is no hint for this question";
@@ -279,14 +290,19 @@
 								updateModel: function() {
 									if(this.nqno==0) {
 										for(var k=0;k<this.questions.length;k++) {
-											person.question.push({
-												qs:this.questions[k].question,
-												ans:this.questions[k].ans,
-												option:false,
-												time:0,
-												hint:false,
-												score:0
-											});
+											if(k!=0) {
+												person.question.push({
+													qs:this.questions[k].question,
+													ans:this.questions[k].ans,
+													option:false,
+													time:0,
+													hint:false,
+													score:0
+												});
+											} else {
+												person.question[0].qs=this.questions[k].question;
+												person.question[0].ans=this.questions[k].ans;
+											}
 										}
 									}
 									if(i<this.questions.length) {
@@ -313,8 +329,11 @@
 												var flag1=0;
 												// if answer is correct
 												if((x==this.questions[this.nqno].ans)){
+															tend=new Date().getTime();
+															person.question[this.nqno].time=(tend-tstart)/1000;
+															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
 															flag1++;
-															if(r=="di1"){
+															if(r=="di1") {
 																		this.$.di1.style.display='inline';
 																		this.$.di1.icon='done';
 															}
@@ -335,7 +354,7 @@
 															person.question[this.nqno].option=true;
 															// first time wrong then score =50 
 															if(this.chance==1) {
-																		person.question[this.current].score=50;
+																		person.question[this.nqno].score=50;
 																		score=score+50;
 																		//question[i].s=score;
 																	//	alert(i);
@@ -360,8 +379,8 @@
 																		// creating delay for next question
 																		this.async(function() {				
 																					this.nqno++;
-																					//this.current = this.current + 1;
-																					//this.questions[0]=this.questions[this.current];
+																					//this.nqno = this.nqno + 1;
+																					//this.questions[0]=this.questions[this.nqno];
 																					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 																		},null,delay);
 																		this.async(function() {
@@ -438,17 +457,17 @@
 																		this.$.di4.style.display='inline';}
 																	var audio = new Audio('voicebuzzer.ogg');
 																		audio.play();
-																		this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
+																		this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.nqno].ans;
 																		this.$.butn1.style.display="none";
 																		this.$.toast2.show();
 																		
 																		// finding last question
-																		if(i!=this.questions.length-1){
+																		if(i!=this.questions.length-1) {
 																					// delay for next question
 																					this.async(function(){				
 																								this.nqno++;
-																								//this.current = this.current + 1;
-																								//this.questions[0]=this.questions[this.current];
+																								//this.nqno = this.nqno + 1;
+																								//this.questions[0]=this.questions[this.nqno];
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 																								this.$.my.lives=life;
 																					},null,delay);
@@ -491,8 +510,8 @@
 															}
 
 												},null,delay);
+												tstart=new Date().getTime();
 								}  
-								
 						});
 						function loadq() {
 							var audio = new Audio('welcome.ogg');
