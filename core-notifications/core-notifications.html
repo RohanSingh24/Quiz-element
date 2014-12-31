@@ -329,6 +329,7 @@
 												var flag1=0;
 												// if answer is correct
 												if((x==this.questions[this.nqno].ans)){
+															this.$.paper_fab.style.display="none";
 															tend=new Date().getTime();
 															person.question[this.nqno].time=(tend-tstart)/1000;
 															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
@@ -382,6 +383,7 @@
 																					//this.nqno = this.nqno + 1;
 																					//this.questions[0]=this.questions[this.nqno];
 																					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+																					this.$.paper_fab.style.display="block";
 																		},null,delay);
 																		this.async(function() {
 																			this.$.butn1.style.display="block";
@@ -458,6 +460,7 @@
 																	var audio = new Audio('voicebuzzer.ogg');
 																		audio.play();
 																		this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.nqno].ans;
+																		this.$.paper_fab.style.display="none";
 																		this.$.butn1.style.display="none";
 																		this.$.toast2.show();
 																		
@@ -469,6 +472,7 @@
 																								//this.nqno = this.nqno + 1;
 																								//this.questions[0]=this.questions[this.nqno];
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+																								this.$.paper_fab.style.display="block";
 																								this.$.my.lives=life;
 																					},null,delay);
 																					this.async(function() {
