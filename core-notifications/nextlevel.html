@@ -12,11 +12,82 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="../webcomponentsjs/webcomponents.js"></script>
   <link rel="import" href="../core-component-page/core-component-page.html">
+  <link rel="import" href="../components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="../components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="../components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="../components/paper-button/paper-button.html">
 
 </head>
+<style>
+#finishsection {
+				box-sizing: border-box;
+				background-color: grey;
+				width: 1000px;
+				height: 550px;
+				left: 150px;
+				top: 70px;
+				position: absolute;						
+		}
+		#score {
+				box-sizing: border-box;
+				background-color: lightgreen;
+				width: 300px;
+				height: 250px;
+				left: 150px;
+				top: 25px;
+				position: absolute;						
+		}
+		#d1 {
+			 align:center;
+			 text-align: center;
+			color:green;
+			font-size:20px;
+
+			}
+			#butn1{
+					background-color:pink;
+					color:black;
+					margin:0 auto;
+					height:50px;
+					width:50px;
+					font-size:20px;
+					display:none;
+				}
+				#butn2{
+					background-color:pink;
+					color:black;
+					margin:0 auto;
+					height:50px;
+					width:50px;
+					font-size:20px;
+					display:none;
+				}
+				#butn3{
+					background-color:pink;
+					color:black;
+					margin:0 auto;
+					height:50px;
+					width:50px;
+					font-size:20px;
+					display:none;
+				}
+
+</style>
 <body unresolved>
 
   <h1>Welcome to Next Level</h1>
 
+ <section id="finishsection" hero flex>
+					<section id="score">
+						<div id="d1">score</div>
+					</section>
+					 <button type="button">Click Me!</button> 
+					<paper-button raised id="butn1" on-click="{{showhint}}">NextLevel</paper-button>
+					<paper-button raised id="butn2" on-click="{{showhint}}">Redo</paper-button>
+					<paper-button raised id="butn3" on-click="{{showhint}}">Review</paper-button>
+				</section>
+
 </body>
+<script>
+</script>
 </html>
