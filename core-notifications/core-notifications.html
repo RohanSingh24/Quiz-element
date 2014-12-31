@@ -368,7 +368,20 @@
 										tstart=new Date().getTime();
 								},
 								redoTest: function(){
-										location.reload();
+										this.nqno=0;										
+										this.chance=0;
+										i=0;
+										life=4;
+										a=0;
+										score=0;
+										hint=0;
+										this.$.my.lives=life;
+										this.$.my.qno=0;
+										this.$.my.a=0;
+										this.$.di1.style.display='none';
+										this.$.di2.style.display='none';
+										this.$.di3.style.display='none';
+										this.$.di4.style.display='none';
 								},
 								showhint: function() {
 										person.question[this.nqno].hint=true;
