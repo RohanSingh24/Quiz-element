@@ -182,12 +182,83 @@
 										display:none;
 										position:absolute;
 								}
+								#quizsection {
+										display:none;
+										position:absolute;
+								}
+			                    #finishsection {
+									box-sizing: border-box;
+									background-color:grey;
+									width: 1000px;
+									height: 550px;
+									left: 150px;
+									top: 70px;
+									position: absolute;						
+								}
+							    #score {
+									box-sizing: border-box;
+									background-color: lightgreen;
+									width: 300px;
+									height: 250px;
+									left: 200px;
+									top: 25px;
+									position: absolute;						
+								}
+								#leaderboard {
+									box-sizing: border-box;
+									background-color: lightblue;
+									width: 300px;
+									height: 500px;
+									left: 600px;
+									top: 25px;
+									position: absolute;						
+								}
+								#di5 {
+			 						align:center;
+			 						text-align: center;
+									color:darkgreen;
+									font-size:20px;
+								}
+								#di6 {
+			 						align:right;
+			 						text-align: center;
+									color:darkblue;
+									font-size:20px;
+								}
+								#butn2{
+									background-color:pink;
+									align:right;
+									color:black;
+									margin:0 auto;
+									height:50px;
+									width:150px;
+									font-size:20px;
+									display:bold;
+							    }
+					    		#butn3{
+									background-color:pink;
+									color:black;
+									margin:0 auto;
+									height:50px;
+									width:50px;
+									font-size:20px;
+									display:bold;
+								}
+								#butn4{
+									background-color:pink;
+									color:black;
+									margin:0 auto;
+									height:50px;
+									width:50px;
+									font-size:20px;
+									display:bold;
+								}
 
 					</style>
 						<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>
 					 <questions-service id="service" questions="{{questions}}">
 					</questions-service>
-				
+				<section id="quizsection" class="paper-shadow-top-z-5" layout vertical>
 				
 					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}} lives=4></status-bar>
 					
@@ -217,7 +288,8 @@
 																	<div class="item" id="ch1">{{questions[nqno].ch1}} <paper-fab id="di1" mini icon="done" ></paper-fab></div>
 															
 																	<div class="item" id="ch2">{{questions[nqno].ch2}}<paper-fab id="di2" mini icon="close"></paper-fab></div>
-															
+			
+
 																	<div class="item" id="ch3">{{questions[nqno].ch3}}<paper-fab id="di3" mini icon="done"></paper-fab></div>
 															
 																	<div class="item" id="ch4">{{questions[nqno].ch4}}<paper-fab id="di4" mini icon="done"></paper-fab></div>
@@ -227,6 +299,28 @@
 									</section>
 							
 					</section>
+				</section>
+
+				<section id="finishsection" hero flex>
+					<section id="score">
+						<div id="di5">Score</div>
+					</section>
+					<section id="leaderboard">
+						<div id="di6">Leader Board</div>
+					</section>
+					<div id="di7">
+					<paper-button raised id="butn2" on-click="{{show}}">NextLevel</paper-button>
+					<br>
+					<br>
+					<paper-button raised id="butn3" on-click="{{show}}">Redo</paper-button>
+					<br>
+					<br>
+					<paper-button raised id="butn4" on-click="{{show}}">Review</paper-button>
+				</div>
+				</section>
+			
+
+
 			  </template>
 				<script>
 						var i=0;
