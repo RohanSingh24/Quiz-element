@@ -183,7 +183,7 @@
 										position:absolute;
 								}
 								#quizsection {
-										display:none;
+									
 										position:absolute;
 								}
 			                    #finishsection {
@@ -253,6 +253,9 @@
 									font-size:20px;
 									display:bold;
 								}
+								#finishsection{
+									display:none;
+								}
 
 					</style>
 						<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>
@@ -265,7 +268,7 @@
 				
 					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
-							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed></paper-fab></custom-paper-toast>
+							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
 							<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>		
@@ -341,6 +344,10 @@
 								{
 									nqno :'',
 									
+								},
+								finish:function() {
+									this.$.quizsection.style.display="none";  
+									this.$.finishsection.style.display="inline";
 								},
 								created: function() {
 										this.questions=[];
