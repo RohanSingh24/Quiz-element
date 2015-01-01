@@ -5,8 +5,13 @@
 <link rel="import" href="../components/core-selector/core-selector.html">
 <link rel="import" href="../components/paper-toast/paper-toast.html">
 <link rel="import" href="../components/paper-progress/paper-progress.html">
+<<<<<<< HEAD
 <link rel="import" href="../components/paper-icon-button/paper-icon-button.html">
 <polymer-element name="status-bar" attributes="  ">
+=======
+<link rel="import" href="../components/core-icon/core-icon.html">
+<polymer-element name="status-bar" attributes="qno qlength score avatarlink lives">
+>>>>>>> 9b5e95d8fe97488f42b76dec137ef6006350c7da
 <template>
 <style>
 #topsec{
@@ -73,22 +78,22 @@ paper-progress::shadow #activeProgress {
 			<div id="div3" >Score:  {{score}}</div>
 			<div id="div5">
 			<template if="{{lives==4}}">
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
+				<core-icon src="../img/pawn.png"></core-icon>
+				<core-icon src="../img/pawn.png"></core-icon>
+				<core-icon src="../img/pawn.png"></core-icon>
+				<core-icon src="../img/pawn.png"></core-icon>
 			</template>
 			<template if="{{lives==3}}">
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
+				<core-icon src="../img/pawn.png"></core-icon>
+				<core-icon src="../img/pawn.png"></core-icon>
+				<core-icon src="../img/pawn.png"></core-icon>
 			</template>
 			<template if="{{lives==2}}">
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
+				<core-icon src="../img/pawn.png"></core-icon>
+				<core-icon src="../img/pawn.png"></core-icon>
 			</template>
 			<template if="{{lives==1}}">
-				<paper-icon-button src="../img/pawn.png"></paper-icon-button>
+				<core-icon src="../img/pawn.png"></core-icon>
 			</template>
 			</div>
 		</div>

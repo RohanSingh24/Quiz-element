@@ -183,6 +183,80 @@
 										display:none;
 										position:absolute;
 								}
+								#quizsection {
+									
+										position:absolute;
+								}
+			                    #finishsection {
+									box-sizing: border-box;
+									background-color:grey;
+									width: 1000px;
+									height: 550px;
+									left: 150px;
+									top: 70px;
+									position: absolute;						
+								}
+							    #score {
+									box-sizing: border-box;
+									background-color: lightgreen;
+									width: 300px;
+									height: 250px;
+									left: 200px;
+									top: 25px;
+									position: absolute;						
+								}
+								#leaderboard {
+									box-sizing: border-box;
+									background-color: lightblue;
+									width: 300px;
+									height: 500px;
+									left: 600px;
+									top: 25px;
+									position: absolute;						
+								}
+								#di5 {
+			 						align:center;
+			 						text-align: center;
+									color:darkgreen;
+									font-size:20px;
+								}
+								#di6 {
+			 						align:right;
+			 						text-align: center;
+									color:darkblue;
+									font-size:20px;
+								}
+								#butn2{
+									background-color:pink;
+									align:right;
+									color:black;
+									margin:0 auto;
+									height:50px;
+									width:150px;
+									font-size:20px;
+									display:bold;
+							    }
+					    		#butn3{
+									background-color:pink;
+									color:black;
+									margin:0 auto;
+									height:50px;
+									width:50px;
+									font-size:20px;
+									display:bold;
+								}
+								#butn4{
+									background-color:pink;
+									color:black;
+									margin:0 auto;
+									height:50px;
+									width:50px;
+									font-size:20px;
+									display:bold;
+								}
+								#finishsection{
+									display:none;
+								}
 
 								#grid {
 									box-sizing: border-box;
@@ -198,14 +272,14 @@
 						<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>
 					 <questions-service id="service" questions="{{questions}}">
 					</questions-service>
-				
-					
+				<section id="quizsection" class="paper-shadow-top-z-5" layout vertical>		
+
 					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}} lives=4></status-bar>
 					
 					<custom-grid id="grid" totalque={{questions.length}}></custom-grid>
 					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
-							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed></paper-fab></custom-paper-toast>
+							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
 							<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>		
@@ -228,7 +302,8 @@
 																	<div class="item" id="ch1">{{questions[nqno].ch1}} <paper-fab id="di1" mini icon="done" ></paper-fab></div>
 															
 																	<div class="item" id="ch2">{{questions[nqno].ch2}}<paper-fab id="di2" mini icon="close"></paper-fab></div>
-															
+			
+
 																	<div class="item" id="ch3">{{questions[nqno].ch3}}<paper-fab id="di3" mini icon="done"></paper-fab></div>
 															
 																	<div class="item" id="ch4">{{questions[nqno].ch4}}<paper-fab id="di4" mini icon="done"></paper-fab></div>
@@ -238,6 +313,28 @@
 									</section>
 							
 					</section>
+				</section>
+
+				<section id="finishsection" hero flex>
+					<section id="score">
+						<div id="di5">Score</div>
+					</section>
+					<section id="leaderboard">
+						<div id="di6">Leader Board</div>
+					</section>
+					<div id="di7">
+					<paper-button raised id="butn2" on-click="{{show}}">NextLevel</paper-button>
+					<br>
+					<br>
+					<paper-button raised id="butn3" on-click="{{show}}">Redo</paper-button>
+					<br>
+					<br>
+					<paper-button raised id="butn4" on-click="{{show}}">Review</paper-button>
+				</div>
+				</section>
+			
+
+
 			  </template>
 				<script>
 						var i=0;
@@ -246,6 +343,8 @@
 						var a=0; var hint=0;
 						var delay1=8000;
 						var life=4;
+						var tstart;
+						var tend;
 						var person = {
 								question:[],
 								ttime:0,
@@ -257,20 +356,46 @@
 									nqno :'',
 									
 								},
+								finish:function() {
+									this.$.quizsection.style.display="none";  
+									this.$.finishsection.style.display="inline";
+								},
 								created: function() {
 										this.questions=[];
-										this.current=0;
+										this.nqno=0;
 										this.chance=0;
 										this.nqno=0;
 										this.async(function() {
 												this.$.butn1.style.display="block";
 										},null,delay1);
+										person.question.push({
+												qs:"",
+												ans:"",
+												option:false,
+												time:0,
+												hint:false,
+												score:0
+										});
+										tstart=new Date().getTime();
 								},
 								redoTest: function(){
-										location.reload();
+										this.nqno=0;										
+										this.chance=0;
+										i=0;
+										life=4;
+										a=0;
+										score=0;
+										hint=0;
+										this.$.my.lives=life;
+										this.$.my.qno=0;
+										this.$.my.a=0;
+										this.$.di1.style.display='none';
+										this.$.di2.style.display='none';
+										this.$.di3.style.display='none';
+										this.$.di4.style.display='none';
 								},
 								showhint: function() {
-										person.question[this.current].hint=true;
+										person.question[this.nqno].hint=true;
 										var v="";
 										if(this.questions[this.nqno].hint=="") {
 												this.$.toast2.text="There is no hint for this question";
@@ -290,14 +415,19 @@
 								updateModel: function() {
 									if(this.nqno==0) {
 										for(var k=0;k<this.questions.length;k++) {
-											person.question.push({
-												qs:this.questions[k].question,
-												ans:this.questions[k].ans,
-												option:false,
-												time:0,
-												hint:false,
-												score:0
-											});
+											if(k!=0) {
+												person.question.push({
+													qs:this.questions[k].question,
+													ans:this.questions[k].ans,
+													option:false,
+													time:0,
+													hint:false,
+													score:0
+												});
+											} else {
+												person.question[0].qs=this.questions[k].question;
+												person.question[0].ans=this.questions[k].ans;
+											}
 										}
 									}
 									if(i<this.questions.length) {
@@ -324,8 +454,12 @@
 												var flag1=0;
 												// if answer is correct
 												if((x==this.questions[this.nqno].ans)){
+															this.$.paper_fab.style.display="none";
+															tend=new Date().getTime();
+															person.question[this.nqno].time=(tend-tstart)/1000;
+															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
 															flag1++;
-															if(r=="di1"){
+															if(r=="di1") {
 																		this.$.di1.style.display='inline';
 																		this.$.di1.icon='done';
 															}
@@ -346,7 +480,7 @@
 															person.question[this.nqno].option=true;
 															// first time wrong then score =50 
 															if(this.chance==1) {
-																		person.question[this.current].score=50;
+																		person.question[this.nqno].score=50;
 																		score=score+50;
 																		//question[i].s=score;
 																	//	alert(i);
@@ -371,9 +505,10 @@
 																		// creating delay for next question
 																		this.async(function() {				
 																					this.nqno++;
-																					//this.current = this.current + 1;
-																					//this.questions[0]=this.questions[this.current];
+																					//this.nqno = this.nqno + 1;
+																					//this.questions[0]=this.questions[this.nqno];
 																					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+																					this.$.paper_fab.style.display="block";
 																		},null,delay);
 																		this.async(function() {
 																			this.$.butn1.style.display="block";
@@ -449,18 +584,20 @@
 																		this.$.di4.style.display='inline';}
 																	var audio = new Audio('voicebuzzer.ogg');
 																		audio.play();
-																		this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.current].ans;
+																		this.$.toast2.text="Wrong Answer. The correct answer is "+this.questions[this.nqno].ans;
+																		this.$.paper_fab.style.display="none";
 																		this.$.butn1.style.display="none";
 																		this.$.toast2.show();
 																		
 																		// finding last question
-																		if(i!=this.questions.length-1){
+																		if(i!=this.questions.length-1) {
 																					// delay for next question
 																					this.async(function(){				
 																								this.nqno++;
-																								//this.current = this.current + 1;
-																								//this.questions[0]=this.questions[this.current];
+																								//this.nqno = this.nqno + 1;
+																								//this.questions[0]=this.questions[this.nqno];
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+																								this.$.paper_fab.style.display="block";
 																								this.$.my.lives=life;
 																					},null,delay);
 																					this.async(function() {
@@ -502,8 +639,8 @@
 															}
 
 												},null,delay);
+												tstart=new Date().getTime();
 								}  
-								
 						});
 						function loadq() {
 							var audio = new Audio('welcome.ogg');
