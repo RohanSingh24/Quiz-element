@@ -560,6 +560,7 @@
 															this.chance=this.chance+1;
 															var flag=0;
 															life=life-1;
+															this.$.my.lives=life;
 															if(life==0)
 															{
 																this.$.paper_fab.style.display="none";
@@ -611,7 +612,6 @@
 																								//this.questions[0]=this.questions[this.nqno];
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 																								this.$.paper_fab.style.display="block";
-																								this.$.my.lives=life;
 																								this.$.di1.style.backgroundColor='red';
 																								this.$.di2.style.backgroundColor='red';
 																								this.$.di3.style.backgroundColor='red';
