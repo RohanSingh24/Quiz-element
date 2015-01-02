@@ -262,13 +262,13 @@
 					 <questions-service id="service" questions="{{questions}}">
 					</questions-service>
 				<section id="quizsection" class="paper-shadow-top-z-5" layout vertical>
-				
+						
 					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}} lives=4></status-bar>
 					
 				
 					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
-							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
+							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="redo" id="paper_fab1" cross-fade-delayed on-click="{{redoTest}}"></paper-fab><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
 							<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>		
@@ -315,7 +315,7 @@
 					<paper-button raised id="butn2" on-click="{{show}}">NextLevel</paper-button>
 					<br>
 					<br>
-					<paper-button raised id="butn3" on-click="{{show}}">Redo</paper-button>
+					<paper-button raised id="butn3" on-click="{{redoTest}}">Redo</paper-button>
 					<br>
 					<br>
 					<paper-button raised id="butn4" on-click="{{show}}">Review</paper-button>
@@ -326,7 +326,7 @@
 
 			  </template>
 				<script>
-						var i=0;
+						var i=0;		var string;
 						var score=0;
 						var delay=3000;
 						var a=0; var hint=0;
@@ -334,11 +334,21 @@
 						var life=4;
 						var tstart;
 						var tend;
+						// person object creation
 						var person = {
 								question:[],
 								ttime:0,
 								score:0,
 						};
+						// question object creation
+						person.question.push({
+												qs:"",
+												ans:"",
+												option:false,
+												time:0,
+												hint:false,
+												score:0
+										});
 						Polymer('core-notifications', {
 								publish: 
 								{
@@ -357,17 +367,11 @@
 										this.async(function() {
 												this.$.butn1.style.display="block";
 										},null,delay1);
-										person.question.push({
-												qs:"",
-												ans:"",
-												option:false,
-												time:0,
-												hint:false,
-												score:0
-										});
+										
 										tstart=new Date().getTime();
 								},
 								redoTest: function(){
+										this.$.paper_fab.style.display="block";
 										this.nqno=0;										
 										this.chance=0;
 										i=0;
@@ -394,13 +398,13 @@
 												this.$.toast2.show();
 												this.$.butn1.style.display="none";
 								}, 
-							
-								/*display: function() {
+					
+								display: function() {
 									for (i = 0; i < 7; i++) {
-									string =string + question[i].qs+"  hint used "+question[i].hint;
+									string =string + person.question[i].qs+" score "+person.question[i].score+"  hint "+person.question[i].hint+" time "+ person.question[i].time;
 								}
-								//alert(string);
-								},*/
+								alert(string);
+								},
 								updateModel: function() {
 									if(this.nqno==0) {
 										for(var k=0;k<this.questions.length;k++) {
@@ -544,6 +548,7 @@
 															life=life-1;
 															if(life==0)
 															{
+																this.$.paper_fab.style.display="none";
 																this.$.redoToast.text="You lost all your lives. Start from the begining.";
 																this.$.redoToast.show();
 															}
