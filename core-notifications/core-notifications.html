@@ -108,9 +108,12 @@
 								}
 								#redoToast{
 										align:center;
+										left:20px;
+										width:200px;
 										background-color:black;
 										color:white;
 										font-size:20px;
+										
 								}
 								
 								#toast1{
@@ -166,11 +169,13 @@
 								#di1 {	
 										display:none;
 										position:absolute;
+										float:left;
 								}
 								
 								#di2 {
 										display:none;
 										position:absolute;
+										float:left;
 								}
 								
 								#di3 {
@@ -321,10 +326,7 @@
 					<paper-button raised id="butn4" on-click="{{show}}">Review</paper-button>
 				</div>
 				</section>
-			
-
-
-			  </template>
+		  </template>
 				<script>
 						var i=0;		var string;
 						var score=0;
@@ -386,6 +388,10 @@
 										this.$.di2.style.display='none';
 										this.$.di3.style.display='none';
 										this.$.di4.style.display='none';
+										this.$.di1.style.backgroundColor='red';
+										this.$.di2.style.backgroundColor='red';
+										this.$.di3.style.backgroundColor='red';
+										this.$.di4.style.backgroundColor='red';
 								},
 								showhint: function() {
 										person.question[this.nqno].hint=true;
@@ -455,18 +461,22 @@
 															if(r=="di1") {
 																		this.$.di1.style.display='inline';
 																		this.$.di1.icon='done';
+																		this.$.di1.style.backgroundColor='green';
 															}
 															else if(r=="di2"){
 																		this.$.di2.style.display='inline';
 																		this.$.di2.icon='done';
+																		this.$.di2.style.backgroundColor='green';
 															}
 															else if(r=="di3"){
 																		this.$.di3.style.display='inline';
 																		this.$.di3.icon='done';
+																		this.$.di3.style.backgroundColor='green';
 															}
 															else if(r=="di4"){
 																		this.$.di4.style.display='inline';
 																		this.$.di4.icon='done';
+																		this.$.di4.style.backgroundColor='green';
 															}
 															var audio = new Audio('rightvoice.ogg');
 															audio.play();
@@ -496,7 +506,11 @@
 															// finding last question
 															if(i!=this.questions.length-1){
 																		// creating delay for next question
-																		this.async(function() {				
+																		this.async(function() {
+																					this.$.di1.style.backgroundColor='red';
+																					this.$.di2.style.backgroundColor='red';
+																					this.$.di3.style.backgroundColor='red';
+																					this.$.di4.style.backgroundColor='red';
 																					this.nqno++;
 																					//this.nqno = this.nqno + 1;
 																					//this.questions[0]=this.questions[this.nqno];
@@ -552,7 +566,7 @@
 																this.$.redoToast.text="You lost all your lives. Start from the begining.";
 																this.$.redoToast.show();
 															}
-															else if(this.chance==1) // wrong answer for first time
+															if(this.chance==1) // wrong answer for first time
 															{
 																this.$.my.lives=life;
 																var audio = new Audio('hint.ogg');
@@ -566,14 +580,18 @@
 																	flag++;																	
 																	if(this.questions[this.nqno].ans1=="ch1"){
 																		this.$.di1.icon='done';
+																		this.$.di1.style.backgroundColor='green';																		
 																		this.$.di1.style.display='inline';}
 																	else if(this.questions[this.nqno].ans1=="ch2"){
 																		this.$.di2.icon='done';
+																		this.$.di2.style.backgroundColor='green';
 																		this.$.di2.style.display='inline';}
 																	else if(this.questions[this.nqno].ans1=="ch3"){
 																		this.$.di3.icon='done';
+																		this.$.di3.style.backgroundColor='green';
 																		this.$.di3.style.display='inline';}
 																	else if(this.questions[this.nqno].ans1=="ch4"){
+																		this.$.di4.style.backgroundColor='green';
 																		this.$.di4.icon='done';
 																		this.$.di4.style.display='inline';}
 																	var audio = new Audio('voicebuzzer.ogg');
@@ -584,7 +602,8 @@
 																		this.$.toast2.show();
 																		
 																		// finding last question
-																		if(i!=this.questions.length-1) {
+																		if((i!=this.questions.length-1)) {
+																			if(life!=0) {
 																					// delay for next question
 																					this.async(function(){				
 																								this.nqno++;
@@ -593,10 +612,15 @@
 																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 																								this.$.paper_fab.style.display="block";
 																								this.$.my.lives=life;
+																								this.$.di1.style.backgroundColor='red';
+																								this.$.di2.style.backgroundColor='red';
+																								this.$.di3.style.backgroundColor='red';
+																									this.$.di4.style.backgroundColor='red';
 																					},null,delay);
 																					this.async(function() {
 																						this.$.butn1.style.display="block";
 																					},null,delay+delay1);
+																			}
 																		}
 																		
 																		// showing score at the end of level
@@ -615,7 +639,7 @@
 													}	
 									}	          
 												this.async(function() {				
-															if(flag1!=0){
+															if(flag1!=0&&life!=0){
 																		flag1=0;
 																		this.$.di1.style.display='none';
 																		this.$.di2.style.display='none';
@@ -623,7 +647,7 @@
 																		this.$.di4.style.display='none';
 																		this.$.butn1.style.display="none";
 															}
-															if(flag!=0){
+															if(flag!=0&&life!=0){
 																		flag=0;
 																		this.$.di1.style.display='none';
 																		this.$.di2.style.display='none';
