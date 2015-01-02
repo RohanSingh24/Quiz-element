@@ -9,6 +9,7 @@
 <link rel="import" href="status-bar.html">
 <link rel="import" href="../components/paper-button/paper-button.html">
 <link rel="import" href="../components/core-ajax/core-ajax.html">
+<link rel="import" href="custom-grid.html">
   <polymer-element name="core-notifications" attributes="nqno">
 		  <template>
 					<style>    
@@ -261,6 +262,14 @@
 								#finishsection{
 									display:none;
 								}
+								 #grid {
+       							 box-sizing: border-box;
+       							 width: 250px;
+        						 height: 300px;
+        						 left: 5px;
+        						top: 5px;
+        						position: absolute;  
+      							}
 
 					</style>
 						<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>
@@ -270,7 +279,7 @@
 						
 					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}} lives=4></status-bar>
 					
-				
+				   <custom-grid id="grid" totalque={{questions.length}}> </custom-grid>
 					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
 							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="redo" id="paper_fab1" cross-fade-delayed on-click="{{redoTest}}"></paper-fab><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
