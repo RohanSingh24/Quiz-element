@@ -30,13 +30,17 @@
         cursor: default;          
       }
 
+
+/*<button onclick="myFunction()">Try it</button>*/
+
     </style>      
 
     <section id = "section1">
       <div id = "container" flex horizontal wrap around layout>
         <template repeat="{{ item in items }}">     
-          <div class="card" horizontal center center-justified layout>
-              <span>{{item}}</span>
+          <div class="card" horizontal center center-justified layout on-click="{{changeQue}}" data-value="{{item}}">
+              <span id="span">{{item}}</span>
+
           </div>
         </template>
       </div>
@@ -60,11 +64,19 @@
       {   
          
           for (var i=1; i < this.totalque+1; i++) {
-             this.items.push(i);            
+             this.items.push(i);        
            }
             
+      },
+
+      //function to take the value shown on the card that has been clicked
+      changeQue: function(event,detail,target)
+      {
+         qnum = target.attributes['data-value'].value;  
+        alert(qnum);
       }
  
+     
     });
   </script>
 </polymer-element>
