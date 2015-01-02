@@ -185,7 +185,7 @@
 								}
 								#quizsection {
 									
-										
+										position:absolute;
 								}
 			                    #finishsection {
 									box-sizing: border-box;
@@ -279,7 +279,7 @@
 					<custom-grid id="grid" totalque={{questions.length}}></custom-grid>
 					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
-							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="redo" id="paper_fab1" cross-fade-delayed on-click="{{redoTest}}"></paper-fab><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
+							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
 							<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>		
@@ -326,7 +326,7 @@
 					<paper-button raised id="butn2" on-click="{{show}}">NextLevel</paper-button>
 					<br>
 					<br>
-					<paper-button raised id="redo" on-click="{{redoTest}}">Redo</paper-button>
+					<paper-button raised id="butn3" on-click="{{show}}">Redo</paper-button>
 					<br>
 					<br>
 					<paper-button raised id="butn4" on-click="{{show}}">Review</paper-button>
@@ -337,27 +337,19 @@
 
 			  </template>
 				<script>
-						var i=0; var flag=0;
+						var i=0;
 						var score=0;
 						var delay=3000;
 						var a=0; var hint=0;
 						var delay1=8000;
 						var life=4;
 						var tstart;
-						var tend,string;
+						var tend;
 						var person = {
 								question:[],
 								ttime:0,
 								score:0,
 						};
-						person.question.push({
-												qs:"",
-												ans:"",
-												option:false,
-												time:0,
-												hint:false,
-												score:0
-										});
 						Polymer('core-notifications', {
 								publish: 
 								{
@@ -376,17 +368,23 @@
 										this.async(function() {
 												this.$.butn1.style.display="block";
 										},null,delay1);
-										
+										person.question.push({
+												qs:"",
+												ans:"",
+												option:false,
+												time:0,
+												hint:false,
+												score:0
+										});
 										tstart=new Date().getTime();
 								},
 								redoTest: function(){
-										flag=1;
 										this.nqno=0;										
 										this.chance=0;
 										i=0;
 										life=4;
 										a=0;
-										this.score=0;
+										score=0;
 										hint=0;
 										this.$.my.lives=life;
 										this.$.my.qno=0;
@@ -395,7 +393,6 @@
 										this.$.di2.style.display='none';
 										this.$.di3.style.display='none';
 										this.$.di4.style.display='none';
-											
 								},
 								showhint: function() {
 										person.question[this.nqno].hint=true;
@@ -409,12 +406,12 @@
 												this.$.butn1.style.display="none";
 								}, 
 							
-								display: function() {
+								/*display: function() {
 									for (i = 0; i < 7; i++) {
-									string =string + person.question[i].qs+" time  "+person.question[i].time+" score "+person.question[i].score;
+									string =string + question[i].qs+"  hint used "+question[i].hint;
 								}
-								alert(string);
-								},
+								//alert(string);
+								},*/
 								updateModel: function() {
 									if(this.nqno==0) {
 										for(var k=0;k<this.questions.length;k++) {
@@ -457,14 +454,7 @@
 												var flag1=0;
 												// if answer is correct
 												if((x==this.questions[this.nqno].ans)){
-														if(flag==1){
-															flag=0;
-															this.$.paper_fab.style.display="inline";
-														} 
-														else {
 															this.$.paper_fab.style.display="none";
-														}
-														
 															tend=new Date().getTime();
 															person.question[this.nqno].time=(tend-tstart)/1000;
 															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
@@ -518,7 +508,7 @@
 																					//this.nqno = this.nqno + 1;
 																					//this.questions[0]=this.questions[this.nqno];
 																					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-																					//this.$.paper_fab.style.display="block";
+																					this.$.paper_fab.style.display="block";
 																		},null,delay);
 																		this.async(function() {
 																			this.$.butn1.style.display="block";
@@ -650,13 +640,12 @@
 
 												},null,delay);
 												tstart=new Date().getTime();
-												
 								}  
 						});
 						function loadq() {
 							var audio = new Audio('welcome.ogg');
-							//audio.play();	
+							audio.play();	
 						}
-						//window.onload=loadq;
+						window.onload=loadq;
 				</script>
   </polymer-element>
