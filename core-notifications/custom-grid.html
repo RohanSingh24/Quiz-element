@@ -1,13 +1,13 @@
 <link rel="import" href="../components/polymer/polymer.html">
 <link rel="import" href="../components/core-ajax/core-ajax.html">
-<polymer-element name="custom-grid" attributes= "totalque">
+<polymer-element name="custom-grid" attributes="totalque qnum">
   <template>
     <style>
 
       #section1 {
         box-sizing: border-box;
-        width: 200px;
-        height: 200px;
+        width: 750px;
+        height: 250px;
         left: 5px;
         top: 5px;
         position: absolute;        
@@ -34,7 +34,7 @@
     <section id = "section1">
       <div id = "container" flex horizontal wrap around layout>
         <template repeat="{{ item in items }}">     
-          <div class="card" horizontal center center-justified layout >
+          <div class="card" horizontal center center-justified layout on-tap="{{ showquestion(item) }}">
               <span>{{item}}</span>
           </div>
         </template>
@@ -43,30 +43,25 @@
 
   </template>
 
-  <script>   
-
-    Polymer('custom-grid', {       
+  <script>
+    Polymer('custom-grid', {
      
+      qnum=0,
       items:[],
-      observe: 
-      {
-        totalque: 'update'
-      },
-
-      //function to catch the value of totalque 
-      //totalque is equal to number of question in the current level
-      update: function()
-      {          
-          for (var i=1; i < this.totalque+1; i++) {
-             this.items.push(i);            
+      created: function()
+       {         
+          this.count = totalque;
+          for (var i=1; i < this.count+1; i++) {
+             this.items.push(i);
            }
             
+        },
+
+      showquestion: function(item)
+      {
+        this.qnum=item;
       }
-
-
-
     });
-  
   </script>
 </polymer-element>
 

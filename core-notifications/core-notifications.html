@@ -9,7 +9,6 @@
 <link rel="import" href="status-bar.html">
 <link rel="import" href="../components/paper-button/paper-button.html">
 <link rel="import" href="../components/core-ajax/core-ajax.html">
-<link rel="import" href="custom-grid.html">
   <polymer-element name="core-notifications" attributes="nqno">
 		  <template>
 					<style>    
@@ -24,7 +23,7 @@
 										box-sizing: border-box;
 								}
 								
-								.item.core-selected{
+								.item.core-selected {
 										background: #00FF80;
 							   }
 							  
@@ -42,7 +41,7 @@
 										width: 750px;
 										height: 250px;
 										left: 350px;
-										 top: 76px;
+										 top: 70px;
 										position: absolute;
 								}
 
@@ -258,25 +257,15 @@
 									display:none;
 								}
 
-								#grid {
-									box-sizing: border-box;
-									 width: 300px;
-     								 height: 300px;
-       								 left: 5px;
-      								 top: 5px;
-        							 position: absolute;   
-        
-								}
-
 					</style>
 						<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>
 					 <questions-service id="service" questions="{{questions}}">
 					</questions-service>
-				<section id="quizsection" class="paper-shadow-top-z-5" layout vertical>		
-
+				<section id="quizsection" class="paper-shadow-top-z-5" layout vertical>
+				
 					<status-bar id="my" class="paper-shadow-top-z-5" score="0" qno="1" qlength={{questions.length}} lives=4></status-bar>
 					
-					<custom-grid id="grid" totalque={{questions.length}}></custom-grid>
+				
 					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
 							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
