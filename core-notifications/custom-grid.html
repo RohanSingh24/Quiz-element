@@ -1,6 +1,6 @@
 <link rel="import" href="../components/polymer/polymer.html">
 <link rel="import" href="../components/core-ajax/core-ajax.html">
-<polymer-element name="custom-grid" attributes= "totalque num">
+<polymer-element name="custom-grid" attributes= "totalque">
   <template>
     <style>
 
@@ -35,7 +35,7 @@
       <div id = "container" flex horizontal wrap around layout>
         <template repeat="{{ item in items }}">     
           <div class="card" horizontal center center-justified layout >
-              <span id="span">{{item}}</span>
+              <span>{{item}}</span>
           </div>
         </template>
       </div>
@@ -48,11 +48,6 @@
     Polymer('custom-grid', {       
      
       items:[],
-      publish:
-      {
-        num:0
-      },
-
       observe: 
       {
         totalque: 'update'
@@ -66,15 +61,9 @@
              this.items.push(i);            
            }
             
-      },
+      }
 
-      // //goes to the question number on which the user clicked
-      // changeQue:function()
-      // {
-      //   alert(this.num);        
-      //   console.log(this.$.span.innerHTML);
- 
-      // }
+
 
     });
   
