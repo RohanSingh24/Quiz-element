@@ -60,6 +60,12 @@
 								}
 								
 								#paper_fab{
+										background-color:yellow;
+										margin-left:90%;
+								}
+								#paper_fab2{
+										display:none;	
+										background-color:#00FFFF;
 										margin-left:90%;
 								}
 								
@@ -292,10 +298,9 @@
 												<div id="que">
 														<blockquote > {{questions[nqno].question}} </blockquote>
 												</div>
-								 
-												<paper-fab icon="av:play-arrow" id="paper_fab" cross-fade-delayed on-click="{{updateModel}}"></paper-fab>
+												<paper-fab icon="check"  id="paper_fab" cross-fade-delayed on-click="{{updateModel}}"></paper-fab>
+												<paper-fab icon="arrow-forward"  id="paper_fab2" cross-fade-delayed on-click="{{changeqn}}"></paper-fab>
 								   </div>
-								
 									<section id="section1" hero flex>
 											<div id="answers">
 														<span id="span1">Choose Answers</span>
@@ -305,8 +310,7 @@
 																	<div class="item" id="ch1">{{questions[nqno].ch1}} <paper-fab id="di1" mini icon="done" ></paper-fab></div>
 															
 																	<div class="item" id="ch2">{{questions[nqno].ch2}}<paper-fab id="di2" mini icon="close"></paper-fab></div>
-			
-
+	
 																	<div class="item" id="ch3">{{questions[nqno].ch3}}<paper-fab id="di3" mini icon="done"></paper-fab></div>
 															
 																	<div class="item" id="ch4">{{questions[nqno].ch4}}<paper-fab id="di4" mini icon="done"></paper-fab></div>
@@ -366,6 +370,39 @@
 									nqno :'',
 									
 								},
+								
+								changeqn: function() {
+									this.$.di1.style.backgroundColor='red';
+									this.$.di2.style.backgroundColor='red';
+									this.$.di3.style.backgroundColor='red';
+									this.$.di4.style.backgroundColor='red';
+									this.nqno++;
+									//this.nqno = this.nqno + 1;
+									//this.questions[0]=this.questions[this.nqno];
+									this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
+									this.$.paper_fab2.style.display="none";
+									this.$.paper_fab.style.display="block";	
+									this.$.di1.style.display='none';
+									this.$.di2.style.display='none';
+									this.$.di3.style.display='none';
+									this.$.di4.style.display='none';									
+									/*if(flag1!=0&&life!=0){
+												flag1=0;
+												this.$.di1.style.display='none';
+												this.$.di2.style.display='none';
+												this.$.di3.style.display='none';
+												this.$.di4.style.display='none';
+												//this.$.butn1.style.display="none";
+									}
+									if(flag!=0&&life!=0){
+												flag=0;
+												this.$.di1.style.display='none';
+												this.$.di2.style.display='none';
+												this.$.di3.style.display='none';
+												this.$.di4.style.display='none';
+											//	this.$.butn1.style.display="none";
+									}*/
+								},
 								finish:function() {
 									this.$.quizsection.style.display="none";  
 									this.$.finishsection.style.display="inline";
@@ -388,7 +425,7 @@
 										i=0;
 										life=4;
 										a=0;
-										score=0;
+										this.$.my.score=0;
 										hint=0;
 										this.$.my.lives=life;
 										this.$.my.qno=0;
@@ -462,7 +499,7 @@
 												var flag1=0;
 												// if answer is correct
 												if((x==this.questions[this.nqno].ans)){
-															this.$.paper_fab.style.display="none";
+															//this.$.paper_fab.style.display="none";
 															tend=new Date().getTime();
 															person.question[this.nqno].time=(tend-tstart)/1000;
 															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
@@ -515,7 +552,7 @@
 															// finding last question
 															if(i!=this.questions.length-1){
 																		// creating delay for next question
-																		this.async(function() {
+																		/*this.async(function() {
 																					this.$.di1.style.backgroundColor='red';
 																					this.$.di2.style.backgroundColor='red';
 																					this.$.di3.style.backgroundColor='red';
@@ -525,7 +562,10 @@
 																					//this.questions[0]=this.questions[this.nqno];
 																					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 																					this.$.paper_fab.style.display="block";
-																		},null,delay);
+																		},null,delay);*/
+																		
+																		this.$.paper_fab.style.display="none"
+																		this.$.paper_fab2.style.display="block"
 																		this.async(function() {
 																			this.$.butn1.style.display="block";
 																		},null,delay+delay1);
@@ -615,7 +655,7 @@
 																		if((i!=this.questions.length-1)) {
 																			if(life!=0) {
 																					// delay for next question
-																					this.async(function(){				
+																					/*this.async(function(){				
 																								this.nqno++;
 																								//this.nqno = this.nqno + 1;
 																								//this.questions[0]=this.questions[this.nqno];
@@ -625,7 +665,9 @@
 																								this.$.di2.style.backgroundColor='red';
 																								this.$.di3.style.backgroundColor='red';
 																									this.$.di4.style.backgroundColor='red';
-																					},null,delay);
+																					},null,delay);*/
+																					this.$.paper_fab.style.display="none"
+																					this.$.paper_fab2.style.display="block"																					
 																					this.async(function() {
 																						this.$.butn1.style.display="block";
 																					},null,delay+delay1);
@@ -647,7 +689,7 @@
 															}
 													}	
 									}	          
-												this.async(function() {				
+												/*this.async(function() {				
 															if(flag1!=0&&life!=0){
 																		flag1=0;
 																		this.$.di1.style.display='none';
@@ -665,7 +707,7 @@
 																		this.$.butn1.style.display="none";
 															}
 
-												},null,delay);
+												},null,delay);*/
 												tstart=new Date().getTime();
 								}  
 						});
