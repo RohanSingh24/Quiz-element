@@ -287,6 +287,7 @@
 					
 				   <custom-grid id="grid" totalque={{questions.length}}> </custom-grid>
 					
+					
 					<section id="section" class="paper-shadow-top-z-5" layout vertical>
 							<custom-paper-toast id="toast123" color="green" text="Yo" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-fab icon="redo" id="paper_fab1" cross-fade-delayed on-click="{{redoTest}}"></paper-fab><paper-fab icon="arrow-forward" id="paper_fab1" cross-fade-delayed on-click="{{finish}}"></paper-fab></custom-paper-toast>
 							<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
@@ -370,7 +371,7 @@
 									nqno :'',
 									
 								},
-								
+
 								changeqn: function() {
 									this.$.di1.style.backgroundColor='red';
 									this.$.di2.style.backgroundColor='red';
@@ -405,7 +406,7 @@
 								},
 								finish:function() {
 									this.$.quizsection.style.display="none";  
-									this.$.finishsection.style.display="inline";
+									this.$.finishsection.style.display="inline";									
 								},
 								created: function() {
 										this.questions=[];
