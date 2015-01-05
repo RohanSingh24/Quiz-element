@@ -293,7 +293,7 @@
 							<paper-toast id="toast1" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>	
 							<paper-toast id="toast2" color="red" text="Wrong answer" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-bottom" style="position: fixed; outline: none; display: none;"></paper-toast>		
-							<custom-paper-toast id="redoToast" color="green" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-button raised id="redo" on-click="{{redoTest}}">Redo</paper-button></custom-paper-toast>
+							<custom-paper-toast id="redoToast" swipeDisabled="true"color="green" role="status" touch-action="none" tabindex="-1" class="core-transition core-transition-center" style="position: fixed; outline: none; display: none;"><paper-button raised id="redo" on-click="{{redoTest}}">Redo</paper-button></custom-paper-toast>
 									<div id="div" hero>
 												<span id="span">Question</span>
 												<div id="que">
@@ -344,7 +344,7 @@
 				<script>
 						var i=0;		var string;
 						var score=0;
-						var delay=3000;
+						var delay=0;
 						var a=0; var hint=0;
 						var delay1=8000;
 						var life=4;
@@ -360,26 +360,24 @@
 						person.question.push({
 												qs:"",
 												ans:"",
-												option:false,
+												option:true,
 												time:0,
 												hint:false,
+												h1:false,
 												score:0
 										});
 						Polymer('core-notifications', {
 								publish: 
 								{
-									nqno :'',
-									
+									nqno :'',									
 								},
-
 								changeqn: function() {
 									this.$.di1.style.backgroundColor='red';
 									this.$.di2.style.backgroundColor='red';
 									this.$.di3.style.backgroundColor='red';
 									this.$.di4.style.backgroundColor='red';
+									person.question[this.nqno].option=false;
 									this.nqno++;
-									//this.nqno = this.nqno + 1;
-									//this.questions[0]=this.questions[this.nqno];
 									this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
 									this.$.paper_fab2.style.display="none";
 									this.$.paper_fab.style.display="block";	
@@ -387,22 +385,16 @@
 									this.$.di2.style.display='none';
 									this.$.di3.style.display='none';
 									this.$.di4.style.display='none';									
-									/*if(flag1!=0&&life!=0){
-												flag1=0;
-												this.$.di1.style.display='none';
-												this.$.di2.style.display='none';
-												this.$.di3.style.display='none';
-												this.$.di4.style.display='none';
-												//this.$.butn1.style.display="none";
-									}
-									if(flag!=0&&life!=0){
-												flag=0;
-												this.$.di1.style.display='none';
-												this.$.di2.style.display='none';
-												this.$.di3.style.display='none';
-												this.$.di4.style.display='none';
-											//	this.$.butn1.style.display="none";
-									}*/
+									//person.question[this.nqno].h1=true;
+									this.async(function() {
+										//console.log(person.question[this.nqno-1].option);
+										if ((person.question[this.nqno].option)) {
+												this.async(function() 
+												{
+													this.$.butn1.style.display="block";
+												},null,delay1);
+											}
+									},null,delay+delay1);									
 								},
 								finish:function() {
 									this.$.quizsection.style.display="none";  
@@ -413,8 +405,15 @@
 										this.nqno=0;
 										this.chance=0;
 										this.nqno=0;
+										//person.question[this.nqno].h1=true;
 										this.async(function() {
-												this.$.butn1.style.display="block";
+										//console.log(person.question[this.nqno-1].option);
+											if ((person.question[this.nqno].option)) {
+												this.async(function() 
+												{
+													this.$.butn1.style.display="block";
+												},null,delay1);
+											}
 										},null,delay1);
 										
 										tstart=new Date().getTime();
@@ -465,7 +464,7 @@
 												person.question.push({
 													qs:this.questions[k].question,
 													ans:this.questions[k].ans,
-													option:false,
+													option:true,
 													time:0,
 													hint:false,
 													score:0
@@ -499,10 +498,11 @@
 												//console.log(x); 
 												var flag1=0;
 												// if answer is correct
-												if((x==this.questions[this.nqno].ans)){
+												if((x==this.questions[this.nqno].ans)) {
 															//this.$.paper_fab.style.display="none";
 															tend=new Date().getTime();
 															person.question[this.nqno].time=(tend-tstart)/1000;
+															person.question[this.nqno].option=true;
 															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
 															flag1++;
 															if(r=="di1") {
@@ -532,18 +532,12 @@
 															if(this.chance==1) {
 																		person.question[this.nqno].score=50;
 																		score=score+50;
-																		//question[i].s=score;
-																	//	alert(i);
-																		//alert(question[i].s);
 															} 
 															
 															// first time correct then score =100
 															else {
 																	person.question[this.nqno].score=100;
 																		score=score+100;
-																			//question[i].s=score;
-																			//alert(i);
-																			//alert(question[i].s);
 															}
 															this.$.toast1.text="Correct answer. Your score is "+score;
 															this.$.butn1.style.display="none";
@@ -553,23 +547,15 @@
 															// finding last question
 															if(i!=this.questions.length-1){
 																		// creating delay for next question
-																		/*this.async(function() {
-																					this.$.di1.style.backgroundColor='red';
-																					this.$.di2.style.backgroundColor='red';
-																					this.$.di3.style.backgroundColor='red';
-																					this.$.di4.style.backgroundColor='red';
-																					this.nqno++;
-																					//this.nqno = this.nqno + 1;
-																					//this.questions[0]=this.questions[this.nqno];
-																					this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-																					this.$.paper_fab.style.display="block";
-																		},null,delay);*/
-																		
 																		this.$.paper_fab.style.display="none"
 																		this.$.paper_fab2.style.display="block"
+																		/*person.question[this.nqno].h1=true;
 																		this.async(function() {
-																			this.$.butn1.style.display="block";
-																		},null,delay+delay1);
+																			alert(person.question[this.nqno].option+"   ===   "+this.nqno+" == "+person.question[this.nqno].h1);	
+																			if (!(person.question[this.nqno].option)&&(person.question[this.nqno].h1)) {
+																				this.$.butn1.style.display="block";
+																			}
+																		},null,delay+delay1);*/
 															}
 															
 															// showing final score at the end of level
@@ -625,6 +611,7 @@
 																		this.$.toast2.text="Wrong Answer.";
 																		this.$.toast2.show();
 																		this.$.butn1.style.display="block";
+																		
 															}
 															else if(this.chance==2) // wrong for the second time 
 															{
@@ -655,18 +642,6 @@
 																		// finding last question
 																		if((i!=this.questions.length-1)) {
 																			if(life!=0) {
-																					// delay for next question
-																					/*this.async(function(){				
-																								this.nqno++;
-																								//this.nqno = this.nqno + 1;
-																								//this.questions[0]=this.questions[this.nqno];
-																								this.$.my.qno=i+1;this.$.my.score=score;this.$.my.a=a;
-																								this.$.paper_fab.style.display="block";
-																								this.$.di1.style.backgroundColor='red';
-																								this.$.di2.style.backgroundColor='red';
-																								this.$.di3.style.backgroundColor='red';
-																									this.$.di4.style.backgroundColor='red';
-																					},null,delay);*/
 																					this.$.paper_fab.style.display="none"
 																					this.$.paper_fab2.style.display="block"																					
 																					this.async(function() {
@@ -690,25 +665,6 @@
 															}
 													}	
 									}	          
-												/*this.async(function() {				
-															if(flag1!=0&&life!=0){
-																		flag1=0;
-																		this.$.di1.style.display='none';
-																		this.$.di2.style.display='none';
-																		this.$.di3.style.display='none';
-																		this.$.di4.style.display='none';
-																		this.$.butn1.style.display="none";
-															}
-															if(flag!=0&&life!=0){
-																		flag=0;
-																		this.$.di1.style.display='none';
-																		this.$.di2.style.display='none';
-																		this.$.di3.style.display='none';
-																		this.$.di4.style.display='none';
-																		this.$.butn1.style.display="none";
-															}
-
-												},null,delay);*/
 												tstart=new Date().getTime();
 								}  
 						});
