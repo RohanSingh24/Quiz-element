@@ -31,6 +31,7 @@
       }
 
 
+
     </style>      
 
     <section id = "section1">
@@ -39,6 +40,7 @@
           <div style="background-color:{{item.ncolor}}" class="card"  horizontal center center-justified layout on-click="{{changeque}}" data-value="{{item.value}}">
             
               <span id="span">{{item.value}}</span>
+
           </div>
         </template>
       </div>
@@ -59,11 +61,13 @@
       update: function()
       {   
          
+
           for (var i=1;i<this.totalque+1;i++) {
              this.items.push({
               value:i,
               ncolor:"tomato"  
               });          
+
            }
            //alert("hi"+this.qnum);
             
@@ -88,6 +92,7 @@
       }
      
  
+     
     });
   </script>
 </polymer-element>
