@@ -1,6 +1,6 @@
 <link rel="import" href="../components/polymer/polymer.html">
 <link rel="import" href="../components/core-ajax/core-ajax.html">
-<polymer-element name="custom-grid" attributes="totalque qnum">
+<polymer-element name="custom-grid" attributes=" totalque qnum">
   <template>
     <style>
 
@@ -30,13 +30,15 @@
         cursor: default;          
       }
 
+
     </style>      
 
     <section id = "section1">
       <div id = "container" flex horizontal wrap around layout>
         <template repeat="{{ item in items }}">     
-          <div class="card" horizontal center center-justified layout>
-              <span>{{item}}</span>
+          <div style="background-color:{{item.ncolor}}" class="card"  horizontal center center-justified layout on-click="{{changeque}}" data-value="{{item.value}}">
+            
+              <span id="span">{{item.value}}</span>
           </div>
         </template>
       </div>
@@ -48,22 +50,43 @@
     Polymer('custom-grid', {       
      
       items:[],
- 
       observe: 
       {
-        totalque: 'update'
+        totalque: 'update',
+        qnum: 'updateq'
       },
 
-      //function to catch the value of totalque 
-      //totalque is equal to number of question in the current level
       update: function()
       {   
          
-          for (var i=1; i < this.totalque+1; i++) {
-             this.items.push(i);            
+          for (var i=1;i<this.totalque+1;i++) {
+             this.items.push({
+              value:i,
+              ncolor:"tomato"  
+              });          
            }
+           //alert("hi"+this.qnum);
             
+      },
+       updateq: function()
+      {   
+         qnum=this.qnum+1;
+         this.highlight();
+            
+      },
+
+      changecolor: function(m,v)
+      {   
+          this.items[m].ncolor=v;
+      },
+
+      changeque:function(e,detail,target)
+      {
+        
+        var num=target.attributes['qnum'].value;
+        alert(num);
       }
+     
  
     });
   </script>

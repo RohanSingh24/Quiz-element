@@ -459,6 +459,7 @@
 															this.$.paper_fab.style.display="none";
 															tend=new Date().getTime();
 															person.question[this.nqno].time=(tend-tstart)/1000;
+															this.$.grid.changecolor(this.nqno,"yellow");
 															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
 															flag1++;
 															if(r=="di1") {
@@ -572,7 +573,7 @@
 															}
 															else if(this.chance==2) // wrong for the second time 
 															{
-																	flag++;																	
+																	flag++;														this.$.grid.changecolor(this.nqno,"yellow");			
 																	if(this.questions[this.nqno].ans1=="ch1"){
 																		this.$.di1.icon='done';
 																		this.$.di1.style.display='inline';}
