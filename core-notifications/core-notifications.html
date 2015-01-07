@@ -280,7 +280,7 @@
       							}
 
 					</style>
-						<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>
+						<!--<paper-fab icon="shopping-cart" id="paper_fab" cross-fade-delayed on-click="{{display}}"></paper-fab>-->
 					 <questions-service id="service" questions="{{questions}}">
 					</questions-service>
 				<section id="quizsection" class="paper-shadow-top-z-5" layout vertical>
@@ -301,7 +301,7 @@
 												<div id="que">
 														<blockquote > {{questions[nqno].question}} </blockquote>
 												</div>
-												<paper-button raised id="paper_fab" on-click="{{updateModel}}">Submit</paper-button>
+												<paper-button raised id="paper_fab" on-click="{{updateModel}}">Check</paper-button>
 												<paper-button raised id="paper_fab2" on-click="{{changeqn}}">Next</paper-button>
 												
 								   </div>
@@ -365,7 +365,7 @@
 						person.question.push({
 												qs:"",
 												ans:"",
-												option:true,
+												option:false,
 												time:0,
 												hint:false,
 												score:0
@@ -395,6 +395,7 @@
 									this.$.di4.style.display='none';									
 									//person.question[this.nqno].h1=true;
 									this.job('showHint', function() {
+										if(!(person.question[this.nqno].option))
 											this.$.butn1.style.display="block";
 										},delay1);
 								},
@@ -409,6 +410,8 @@
 										this.nqno=0;
 										//person.question[this.nqno].h1=true;
 										this.job('showHint', function() {
+										//alert(person.question[this.nqno].option);
+										if(!(person.question[this.nqno].option))
 											this.$.butn1.style.display="block";
 										},delay1);					
 										tstart=new Date().getTime();
@@ -443,15 +446,15 @@
 										else 
 												this.$.toast2.text="Hint : "+this.questions[this.nqno].hint;
 												this.$.toast2.show();
-												this.$.butn1.style.display="none";
+												//this.$.butn1.style.display="none";
 								}, 
 					
-								display: function() {
+							/*	display: function() {
 									for (i = 0; i < 7; i++) {
 									string =string + person.question[i].qs+" score "+person.question[i].score+"  hint "+person.question[i].hint+" time "+ person.question[i].time;
 								}
 								alert(string);
-								},
+								},*/
 								updateModel: function() {
 									if(this.nqno==0) {
 										for(var k=0;k<this.questions.length;k++) {
@@ -459,7 +462,7 @@
 												person.question.push({
 													qs:this.questions[k].question,
 													ans:this.questions[k].ans,
-													option:true,
+													option:false,
 													time:0,
 													hint:false,
 													score:0
@@ -470,6 +473,7 @@
 											}
 										}
 									}
+									
 									if(i<this.questions.length) {
 												//alert(i+1);
 												//question[i].qs=this.questions[0].question;
@@ -501,7 +505,6 @@
 															this.$.grid.changecolor(this.nqno,"yellow");
 
 															person.question[this.nqno].option=true;
-
 															//alert(person.question[this.nqno].time+"   "+tend+"    " +tstart);
 															flag1++;
 															if(r=="di1") {
@@ -544,7 +547,7 @@
 															this.$.toast1.show();
 															
 															// finding last question
-															if(i!=this.questions.length-1){
+															if(i!=this.questions.length-1) {
 																		// creating delay for next question
 																		this.$.paper_fab.style.display="none"
 																		this.$.paper_fab2.style.display="block"
