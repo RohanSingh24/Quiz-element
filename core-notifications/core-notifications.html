@@ -60,17 +60,19 @@
 								}
 								
 								#paper_fab{
+										height: 50px;
+										width:40px;
 										background-color:yellow;
-										margin-left:90%;
+										margin-left:85%;
+										font-size:20px;
 								}
 								#paper_fab2{
+										height: 50px;
+										width:40px;
 										display:none;	
 										background-color:#00FFFF;
-										margin-left:90%;
-								}
-								
-								#paper_fab1{
-								
+										margin-left:85%;
+										font-size:20px;
 								}
 								
 								#que{
@@ -299,8 +301,9 @@
 												<div id="que">
 														<blockquote > {{questions[nqno].question}} </blockquote>
 												</div>
-												<paper-fab icon="check"  id="paper_fab" cross-fade-delayed on-click="{{updateModel}}"></paper-fab>
-												<paper-fab icon="arrow-forward"  id="paper_fab2" cross-fade-delayed on-click="{{changeqn}}"></paper-fab>
+												<paper-button raised id="paper_fab" on-click="{{updateModel}}">Submit</paper-button>
+												<paper-button raised id="paper_fab2" on-click="{{changeqn}}">Next</paper-button>
+												
 								   </div>
 									<section id="section1" hero flex>
 											<div id="answers">
@@ -342,7 +345,8 @@
 				</section>
 		  </template>
 				<script>
-						var i=0;		var string;
+						var i=0;
+						var string;
 						var score=0;
 						var delay=0;
 						var a=0; var hint=0;
@@ -350,6 +354,7 @@
 						var life=4;
 						var tstart;
 						var tend;
+						var myvar;
 						// person object creation
 						var person = {
 								question:[],
@@ -363,15 +368,18 @@
 												option:true,
 												time:0,
 												hint:false,
-												h1:false,
 												score:0
 										});
 						Polymer('core-notifications', {
 								publish: 
 								{
-									nqno :'',									
+									nqno :'',
 								},
 								changeqn: function() {
+									var start=new Date().getTime();
+									clearTimeout(myvar);
+									person.question[this.nqno].h1=true;
+									this.$.butn1.style.display="none";
 									this.$.di1.style.backgroundColor='red';
 									this.$.di2.style.backgroundColor='red';
 									this.$.di3.style.backgroundColor='red';
@@ -386,15 +394,9 @@
 									this.$.di3.style.display='none';
 									this.$.di4.style.display='none';									
 									//person.question[this.nqno].h1=true;
-									this.async(function() {
-										//console.log(person.question[this.nqno-1].option);
-										if ((person.question[this.nqno].option)) {
-												this.async(function() 
-												{
-													this.$.butn1.style.display="block";
-												},null,delay1);
-											}
-									},null,delay+delay1);									
+									this.job('showHint', function() {
+											this.$.butn1.style.display="block";
+										},delay1);
 								},
 								finish:function() {
 									this.$.quizsection.style.display="none";  
@@ -406,16 +408,9 @@
 										this.chance=0;
 										this.nqno=0;
 										//person.question[this.nqno].h1=true;
-										this.async(function() {
-										//console.log(person.question[this.nqno-1].option);
-											if ((person.question[this.nqno].option)) {
-												this.async(function() 
-												{
-													this.$.butn1.style.display="block";
-												},null,delay1);
-											}
-										},null,delay1);
-										
+										this.job('showHint', function() {
+											this.$.butn1.style.display="block";
+										},delay1);					
 										tstart=new Date().getTime();
 								},
 								redoTest: function(){
