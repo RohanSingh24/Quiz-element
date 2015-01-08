@@ -1,0 +1,120 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/core-ajax/core-ajax.html">
+<polymer-element name="score-card" attributes="totalque qnum user">
+  <template>
+    <style>
+      
+	  #container {
+        overflow: auto;
+      }
+
+      .card {
+        position: relative;
+         height: 50px;
+        width: 50px;
+        font-size: 20px;
+        margin: 2px;
+        background-color: tomato;
+        border-radius: 8px;
+        cursor: default;          
+      }
+      #in{
+		display:inline;
+	  }
+
+	table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+	}
+	th,td {
+		padding: 15px;
+		 width: 100%; 
+		background-color: #f1f1c1;
+	}
+
+    </style>      
+
+    <section>
+		
+	      <div id = "container" flex horizontal wrap around layout>    
+			<table border="2">
+			 <caption>USER STATS</caption>
+      <tr>
+        <!--template to create column headers-->
+			<td>QNO</td>
+			<td>SCORE </td>
+			<td>TIME</td>
+			<td>HINT</td>
+      </tr>
+      <!--template to create rows-->
+        <!--nested template to create cells-->
+          <!--new template to render cell-->
+		  <template repeat="{{ item,i in items }}">     
+					<tr>
+						<td>q{{item}}</td>
+						<td>{{user.question[item].score}}</td>
+						<td>{{user.question[item].time}}</td>
+						<td>{{user.question[item].hint}}</td>
+					</tr>
+		  </template>
+				
+				
+				
+    </table>
+				
+			
+      </div>
+	 
+    </section>
+
+  </template>
+
+  <script>
+  	var user = {
+								question:[],
+								ttime:0,
+								score:0,
+						};
+						// question object creation
+						user.question.push({
+												qs:"",
+												ans:"",
+												option:false,
+												time:0,
+												hint:false,
+												score:0,
+												h1:0
+										});
+    Polymer('score-card', {       
+      user:user,
+      items:[],
+ 
+      observe: 
+      {
+        totalque: 'update'
+      },
+
+      //function to catch the value of totalque 
+      //totalque is equal to number of question in the current level
+      update: function()
+      {   
+         
+          for (var i=0; i < this.totalque; i++) {
+             this.items.push(i);        
+           }
+            
+      },
+		hello:function(){
+			   this.$.container.querySelector('#d1').style.backgroundColor='blue';
+		},
+      //function to take the value shown on the card that has been clicked
+      changeQue: function(event,detail,target)
+      {
+         qnum = target.attributes['data-value'].value;  
+        alert(qnum);
+      }
+ 
+     
+    });
+  </script>
+</polymer-element>

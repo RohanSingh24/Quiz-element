@@ -10,6 +10,8 @@
 <link rel="import" href="../components/paper-button/paper-button.html">
 <link rel="import" href="../components/core-ajax/core-ajax.html">
 <link rel="import" href="custom-grid.html">
+<link rel="import" href="score-card.html">
+<link rel="import" href="review-element.html">
   <polymer-element name="core-notifications" attributes="nqno">
 		  <template>
 					<style>    
@@ -197,24 +199,26 @@
 										position:absolute;
 								}
 								#quizsection {
-									
+										
 										position:absolute;
 								}
 			                    #finishsection {
 									box-sizing: border-box;
-									background-color:grey;
+									background-color:#58FAF4;
 									width: 1000px;
-									height: 550px;
+									height: 540px;
 									left: 150px;
 									top: 70px;
-									position: absolute;						
+									position: absolute;	
+									display:none;
+								
 								}
 							    #score {
 									box-sizing: border-box;
 									background-color: lightgreen;
 									width: 300px;
-									height: 250px;
-									left: 200px;
+									height: 270px;
+									left: 300px;
 									top: 25px;
 									position: absolute;						
 								}
@@ -223,9 +227,35 @@
 									background-color: lightblue;
 									width: 300px;
 									height: 500px;
-									left: 600px;
-									top: 25px;
+									left: 400px;
+									top: -25px;
 									position: absolute;						
+								}
+								#finish{
+									background-color:pink;
+									color:black;
+									height:50px;
+									width:150px;
+									font-size:20px;
+									right:-60px;
+									position:absolute;
+								
+							    }
+								#nextlevel{
+									background-color:pink;
+									color:black;
+									height:50px;
+									width:150px;
+									font-size:20px;
+									position:relative;
+									left:-60px;
+									
+								}
+								#score_card{
+									margin-top:12px;
+								}
+								#reviewelement{
+									display:none;
 								}
 								#di5 {
 			 						align:center;
@@ -327,28 +357,20 @@
 				</section>
 
 				<section id="finishsection" hero flex>
-					<section id="score">
-						 <section>
-							  <div id = "container" flex horizontal wrap around layout>
-								<template repeat="{{ item in items }}">     
-								 <paper-button raised id="butn2" on-click="{{show}}">NextLevel</paper-button>
-								</template>
-							  </div>
-							</section>
-						<div id="di5">Score</div>
-					</section>
-					<section id="leaderboard">
-						<div id="di6">Leader Board</div>
-					</section>
-					<div id="di7">
-					<paper-button raised id="butn2" on-click="{{show}}">NextLevel</paper-button>
-					<br>
-					<br>
-					<paper-button raised id="butn3" on-click="{{redoTest}}">Redo</paper-button>
-					<br>
-					<br>
-					<paper-button raised id="butn4" on-click="{{show}}">Review</paper-button>
-				</div>
+					<div id="score">
+						<div id="score_card">
+						<score-card  totalque={{questions.length}} user="{{person}}"> </score-card>
+						<div>
+					</div>
+					<div id="leaderboard">Leader Board</div>
+					<div>
+						<paper-button raised id="finish" on-click="{{showReview}}">Review</paper-button>
+						<paper-button raised id="nextlevel" on-click="{{show}}">NextLevel</paper-button>
+						
+					</div>
+				</section>
+				<section id="reviewelement" hero flex>
+				<review-element totalque={{questions.length}} user={{person}} ></review-element>
 				</section>
 		  </template>
 				<script>
@@ -378,9 +400,18 @@
 												score:0
 										});
 						Polymer('core-notifications', {
+								person:person,
 								publish: 
 								{
 									nqno :'',
+								},
+								finish:function() {
+									this.$.quizsection.style.display="none";  
+									this.$.finishsection.style.display="inline";									
+								},
+								showReview: function() {
+									this.$.reviewelement.style.display='inline';
+									this.$.finishsection.style.display="none";
 								},
 								changeqn: function() {
 									var start=new Date().getTime();
