@@ -328,6 +328,13 @@
 
 				<section id="finishsection" hero flex>
 					<section id="score">
+						 <section>
+							  <div id = "container" flex horizontal wrap around layout>
+								<template repeat="{{ item in items }}">     
+								 <paper-button raised id="butn2" on-click="{{show}}">NextLevel</paper-button>
+								</template>
+							  </div>
+							</section>
 						<div id="di5">Score</div>
 					</section>
 					<section id="leaderboard">
